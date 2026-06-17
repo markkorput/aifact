@@ -77,7 +77,7 @@ Read these to establish shared baseline context:
 
 When the prompt touches architecture, standards, roadmap, prior decisions, or sequencing, also consult:
 - `work/adr/`
-- `work/backlog/`
+- `work/stories/`
 
 ### Tool Preambles
 - Before using tools, briefly say what you are checking and why.

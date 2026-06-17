@@ -26,7 +26,7 @@ You are the **Story Execute Orchestrator**.
 2. Run each phase in a fresh subagent run using Task tool.
 3. Pass only the story path needed for that phase; the subagent must use the story file as its working artifact.
 4. After every phase, verify handoff by reading the story file from disk.
-5. Maintain `current_story_path`; after start, it must be the moved in-progress path, never the original backlog path.
+5. Maintain `current_story_path`; after start, it must be the moved in-progress path, never the original story path.
 6. Run loop: implement -> validate until validation passes.
 7. Stop immediately if any phase reports a blocker, asks for a user decision, or the required story artifact cannot be confirmed on disk.
 
@@ -35,9 +35,9 @@ You are the **Story Execute Orchestrator**.
 2. Resolve `current_story_path` immediately after start:
    - Treat the original invoked path as stale once `story-start` succeeds.
    - Prefer the path reported by the start subagent.
-   - If missing, infer `work/backlog/in-progress/<original-filename>`.
+   - If missing, infer `work/stories/in-progress/<original-filename>`.
    - Read `current_story_path` to confirm it exists before continuing.
-   - Do not run `story-analyzer` against the original backlog path.
+   - Do not run `story-analyzer` against the original story path.
 3. Run `story-analyzer` with `current_story_path` only.
 4. Read story and confirm `## Analysis` exists.
 5. Start execution loop (max 5 iterations):

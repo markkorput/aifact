@@ -15,7 +15,7 @@ This repository defines an artifact-based AI workflow.
 - `.opencode/skills/` - reusable skills
 - `.opencode/custom/init/` - bootstrap assets and README source
 - `work/project-config.md` - repo operating context
-- `work/backlog/` - story state
+- `work/stories/` - story state
 - `work/ideas/` - idea capture
 
 ## Agent behavior

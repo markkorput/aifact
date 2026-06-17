@@ -17,7 +17,7 @@ Update `work/project-config.md` directly so it matches the current repository as
 2. Inspect the current repository state relevant to project config:
    - top-level repo directories
    - `work/guidelines/`
-   - `work/backlog/`
+   - `work/stories/`
    - `work/adr/`
    - `docs/`
    - `Makefile`

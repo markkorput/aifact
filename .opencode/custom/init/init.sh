@@ -9,11 +9,11 @@ README_LINK="work/README.md"
 
 DIRS=(
   "work"
-  "work/backlog"
-  "work/backlog/backlog"
-  "work/backlog/done"
-  "work/backlog/in-progress"
-  "work/backlog/planned"
+  "work/stories"
+  "work/stories/backlog"
+  "work/stories/done"
+  "work/stories/in-progress"
+  "work/stories/planned"
   "work/ideas"
   "work/ideas/ideas"
   "work/releases"
@@ -108,7 +108,7 @@ if [ ! -f AGENTS.md ]; then
 ## Important locations
 
 - `work/project-config.md` - repo operating context
-- `work/backlog/` - story state
+- `work/stories/` - story state
 - `work/ideas/` - idea capture
 
 ## Agent behavior

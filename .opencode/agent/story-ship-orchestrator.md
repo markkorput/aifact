@@ -28,7 +28,7 @@ You are the **Story Ship Orchestrator**.
 2. Run each phase in a fresh subagent run using Task tool.
 3. Pass only the story path needed for that phase; the subagent must use the story file as its working artifact.
 4. After every phase, verify handoff by reading the story file from disk.
-5. Maintain `current_story_path`; after start, it must be the moved in-progress path, never the original backlog path.
+5. Maintain `current_story_path`; after start, it must be the moved in-progress path, never the original story path.
 6. Run loop: implement -> validate until validation passes.
 7. Run `story-done` only after validation passes.
 8. Run `story-pr` only after `story-done` succeeds.
@@ -39,9 +39,9 @@ You are the **Story Ship Orchestrator**.
 2. Resolve `current_story_path` immediately after start:
    - Treat the original invoked path as stale once `story-start` succeeds.
    - Prefer the path reported by the start subagent.
-   - If missing, infer `work/backlog/in-progress/<original-filename>`.
+   - If missing, infer `work/stories/in-progress/<original-filename>`.
    - Read `current_story_path` to confirm it exists before continuing.
-   - Do not run `story-analyzer` against the original backlog path.
+   - Do not run `story-analyzer` against the original story path.
 3. Run `story-analyzer` with `current_story_path` only.
 4. Read story and confirm `## Analysis` exists.
 5. Start execution loop (max 5 iterations):
@@ -60,7 +60,7 @@ You are the **Story Ship Orchestrator**.
 8. If `story-done` reports a blocker or user decision, stop and report it.
 9. Resolve the final story path:
     - Prefer the path reported by the done subagent.
-    - If missing, infer `work/backlog/done/<original-filename>`.
+    - If missing, infer `work/stories/done/<original-filename>`.
     - Read the final story path to confirm it exists before reporting success.
 10. Run `story-pr` with the final story path only.
 11. If `story-pr` reports a blocker or user decision, stop and report it.

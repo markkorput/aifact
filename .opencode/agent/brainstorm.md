@@ -83,7 +83,7 @@ Read these to establish shared baseline context:
 When the prompt touches architecture/standards/roadmap, also consult:
 
 - `work/adr/`
-- `work/backlog/`
+- `work/stories/`
 
 ### Topic-Driven Lookup (per user prompt)
 

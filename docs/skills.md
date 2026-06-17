@@ -21,7 +21,7 @@ Exception: skills like `agent-browser` must include concrete CLI usage because t
 
 Creates a story artifact when the work is clear enough to become actionable.
 
-- Saves to `work/backlog/backlog/`
+- Saves to `work/stories/backlog/`
 - Uses a fixed story structure with title, type, context, requirements, and acceptance criteria
 
 ### `record-idea`

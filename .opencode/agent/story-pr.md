@@ -17,10 +17,10 @@ You are the **Story PR** agent.
 ## Execute
 1. Read the invoked argument.
 2. Resolve optional story context safely:
-   - If the argument is empty or does not point to a readable backlog story file, continue without story context.
-   - If the argument points to `work/backlog/done/`, use it as story context.
-   - If the argument points to `work/backlog/in-progress/`, use it as story context.
-   - If the argument points to the original backlog location, do not use it as the authoritative story artifact.
+   - If the argument is empty or does not point to a readable story file, continue without story context.
+   - If the argument points to `work/stories/done/`, use it as story context.
+   - If the argument points to `work/stories/in-progress/`, use it as story context.
+   - If the argument points to the original story location, do not use it as the authoritative story artifact.
 3. If story context exists, read it and extract the title plus the latest validation artifact context for PR summary material.
 4. Inspect repository state before touching GitHub:
    - Run `git status --short --branch`.

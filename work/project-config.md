@@ -19,7 +19,7 @@ If another repo document conflicts with this file, follow this file.
 - `.opencode/custom/init/` contains the repo bootstrap assets, including `init.sh`, prompt reference files, and the project README source.
 - `.opencode/scripts/` contains support scripts used by workflow automation.
 - `work/project-config.md` is the main repo-local operating context file.
-- `work/backlog/backlog/`, `work/backlog/planned/`, `work/backlog/in-progress/`, and `work/backlog/done/` hold story state.
+- `work/stories/backlog/`, `work/stories/planned/`, `work/stories/in-progress/`, and `work/stories/done/` hold story state.
 - `work/ideas/ideas/` and `work/ideas/Inbox.md` hold early-stage ideas.
 - `work/guidelines/`, `work/adr/`, and `work/releases/` exist but currently contain only scaffold files.
 
@@ -43,8 +43,8 @@ If another repo document conflicts with this file, follow this file.
 ### Work Artifacts
 
 - Guideline: none currently present under `work/guidelines/`
-- Patterns: `work/project-config.md`, `work/backlog/**/*`, `work/ideas/**/*`, `work/adr/**/*`, `work/releases/**/*`
-- Keywords: `story`, `backlog`, `idea`, `adr`, `release`, `project config`
+- Patterns: `work/project-config.md`, `work/stories/**/*`, `work/ideas/**/*`, `work/adr/**/*`, `work/releases/**/*`
+- Keywords: `story`, `stories`, `idea`, `adr`, `release`, `project config`
 
 ### Bootstrap and Prompt Assets
 

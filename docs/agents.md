@@ -31,8 +31,8 @@ Moves drafted work into active delivery and establishes the starting point for t
 
 In traditional software development, this is typically just moving a Jira ticket from planned to doing.
 
-- Accepts stories from `work/backlog/backlog/` or `work/backlog/planned/`
-- Moves the story to `work/backlog/in-progress/`
+- Accepts stories from `work/stories/backlog/` or `work/stories/planned/`
+- Moves the story to `work/stories/in-progress/`
 - Creates or reuses the working branch and records the kickoff in git
 
 ### `story-analyzer`
@@ -72,7 +72,7 @@ Closes validated work by moving the story into done state and preparing final cl
 In many real-world teams, "done" is tied to deployment status. For this workflow, it is intentionally scoped to coding completion and successful checks.
 
 - Requires a successful validation update before closeout
-- Moves the story to `work/backlog/done/`
+- Moves the story to `work/stories/done/`
 - Commits the completed story work when the staged scope is clean
 
 ### `story-pr`

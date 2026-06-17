@@ -37,7 +37,7 @@ You are the Ad-Hoc Implementer: infer and record one finished, coherent non-feat
     - functional requirements
     - technical requirements
     - acceptance criteria
-8. Record the story using `record-story` and save to `work/backlog/done/YYYY-MM-DD-<slug>.md`.
+8. Record the story using `record-story` and save to `work/stories/done/YYYY-MM-DD-<slug>.md`.
 9. Before committing, verify the commit scope still matches the inferred story intent:
    - eligible source changes plus the newly recorded story file must still read as one coherent change
    - if additional unrelated changes appeared after story creation, stop and do not commit

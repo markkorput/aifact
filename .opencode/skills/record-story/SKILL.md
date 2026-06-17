@@ -1,6 +1,6 @@
 ---
 name: record-story
-description: Record a new user story using the backlog template.
+description: Record a new user story using the story template.
 ---
 
 # Record Story
@@ -44,5 +44,5 @@ description: Record a new user story using the backlog template.
 
 1. Generate date `YYYY-MM-DD`.
 2. Slugify title.
-3. Save to `work/backlog/backlog/YYYY-MM-DD-<slug>.md`.
+3. Save to `work/stories/backlog/YYYY-MM-DD-<slug>.md`.
 4. Confirm saved path.

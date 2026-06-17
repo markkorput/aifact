@@ -22,7 +22,7 @@ By moving that context into durable repo artifacts, the workflow becomes:
 work/
 |- project-config.md
 |- README.md
-|- backlog/
+|- stories/
 |  |- backlog/
 |  |- planned/
 |  |- in-progress/
@@ -36,10 +36,10 @@ work/
 ## What the main areas are for
 
 - `work/project-config.md` is the main operating context for agents
-- `work/backlog/backlog/` holds backlog stories
-- `work/backlog/planned/` is an optional staging area for likely next work
-- `work/backlog/in-progress/` holds stories currently in delivery
-- `work/backlog/done/` holds completed story history
+- `work/stories/backlog/` holds backlog stories
+- `work/stories/planned/` is an optional staging area for likely next work
+- `work/stories/in-progress/` holds stories currently in delivery
+- `work/stories/done/` holds completed story history
 - `work/guidelines/` holds compact repo-specific engineering rules
 - `work/adr/` holds Architecture Decision Records
 - `work/ideas/` holds rough concepts that are not ready to become stories

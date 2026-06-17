@@ -32,7 +32,7 @@ That is why AiFact is artifact-based:
 
 The workflow is centered on one idea: the AI should not rely on hidden state as the source of truth.
 
-Instead, the source of truth is a repo artifact, usually a story under `work/backlog/`. Each phase reads the current artifact, updates the section it owns, and leaves a durable handoff for the next phase.
+Instead, the source of truth is a repo artifact, usually a story under `work/stories/`. Each phase reads the current artifact, updates the section it owns, and leaves a durable handoff for the next phase.
 
 In practice:
 

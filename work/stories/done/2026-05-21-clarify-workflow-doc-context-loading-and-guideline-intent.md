@@ -16,7 +16,7 @@ Core documentation was updated to make workflow expectations easier to interpret
 
 ## Technical Requirements
 
-- Restrict changes to documentation artifacts under `docs/` and a done-story record under `work/backlog/done/`.
+- Restrict changes to documentation artifacts under `docs/` and a done-story record under `work/stories/done/`.
 - Keep guidance aligned with repository-local workflow behavior and avoid introducing product feature requirements.
 - Preserve existing document structure while inserting concise clarifications in relevant sections.
 

@@ -11,10 +11,10 @@ You are the **Story Start** agent.
 ## Execute
 1. Read the invoked story path argument.
 2. Resolve the source story path safely:
-   - Accept stories from `work/backlog/backlog/` or `work/backlog/planned/`.
-   - If the argument points to `work/backlog/in-progress/` or `work/backlog/done/`, stop and report a blocker.
+   - Accept stories from `work/stories/backlog/` or `work/stories/planned/`.
+   - If the argument points to `work/stories/in-progress/` or `work/stories/done/`, stop and report a blocker.
    - If the path cannot be read, stop and report a blocker.
-3. Move the story file to `work/backlog/in-progress/`:
+3. Move the story file to `work/stories/in-progress/`:
    - If the source file is tracked by git, use `git mv`.
    - If untracked, use `mv` and then stage only the moved story file.
 4. Read the moved story and extract `Type` and title.

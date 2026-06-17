@@ -48,7 +48,7 @@ Runs a short brainstorm around a guideline topic and then records the result.
 
 Turns completed stories into a versioned release artifact.
 
-- Moves stories from `work/backlog/done/` into a versioned release folder
+- Moves stories from `work/stories/done/` into a versioned release folder
 - Creates `release.md` and updates `work/releases/releases.md`
 - Requires the user to choose the final version when one is not provided
 

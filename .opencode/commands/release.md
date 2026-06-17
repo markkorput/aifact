@@ -6,7 +6,7 @@ model: openai/gpt-5.3-codex
 
 # Release Command
 
-Create a new release from stories in `work/backlog/done/`.
+Create a new release from stories in `work/stories/done/`.
 
 ## Inputs
 
@@ -18,8 +18,8 @@ Create a new release from stories in `work/backlog/done/`.
 2. If it exists, read it and determine the latest version from the first table row.
 3. If it does not exist, treat this as the first release with no prior version and create `work/releases/releases.md` when writing the release.
 4. If the file exists but the releases table is missing, empty, or the first version cannot be parsed as `x.y.z`, stop and ask the user to fix `work/releases/releases.md` first.
-5. List story files in `work/backlog/done/`, ignore `.gitkeep`, and sort the remaining filenames ascending.
-6. If no story files exist, stop and output: `No stories in work/backlog/done/.`
+5. List story files in `work/stories/done/`, ignore `.gitkeep`, and sort the remaining filenames ascending.
+6. If no story files exist, stop and output: `No stories in work/stories/done/.`
 7. Read each done story directly using `read`, starting with only the first 12 lines.
 8. Extract story metadata without helper scripts:
    - Title: use the first non-empty line that starts with `# `, removing the leading `# `.
