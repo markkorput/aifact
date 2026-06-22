@@ -65,3 +65,51 @@ Existing vibe skills (story-analyzer, story-implementer, story-validator, etc.) 
 - Skill is validated by running it on at least one existing story in the backlog
 - Opencode story-reviewer agent remains unchanged (for now) until validation passes
 - Story file follows the standard template and all required fields are present
+
+## Analysis
+
+### Likely Impact
+
+- Primary implementation lane: `.vibe/skills/story-reviewer/SKILL.md` - new skill file to be created
+- `.vibe/skills/story-reviewer/` - new directory for the story-reviewer skill
+- `.vibe/skills/story-reviewer/SKILL.md` - contains the ported review logic from opencode agent
+
+### Possible Adjacent Touchpoints
+
+- `work/backlog/backlog/*.md` - existing drafted stories for validation testing
+- `.opencode/agent/story-reviewer.md` - source material to port (read-only reference)
+
+### Existing Patterns / Prior Art
+
+- `.vibe/skills/story-analyzer/SKILL.md` - closest vibe skill pattern with YAML frontmatter (name, description, user-invocable, allowed-tools)
+- `.vibe/skills/record-story/SKILL.md` - example of vibe skill structure and sections
+- `.opencode/agent/story-reviewer.md` - the opencode agent to convert, contains complete review methodology, output contract, and critique labels
+
+### Layer Boundaries
+
+- Touch first: `.vibe/skills/story-reviewer/` directory and SKILL.md file
+- Avoid unless evidence emerges: `.opencode/` directory (preserve until validation passes), source code, runtime configuration, files outside `work/` directory
+
+### Verification Plan
+
+**Unit Tests**:
+
+- Verify SKILL.md has valid YAML frontmatter with required fields (name, description, user-invocable, allowed-tools)
+- Verify all required sections exist: Purpose, Role, Hard Constraints, Review Method, Review Checklist, Completion Contract
+- Verify output contract format matches opencode agent (What exists today, Proposals, Open questions, Decision summary)
+- Verify critique labels are present (Verified alignment, Architecture fit concerns, Failure modes, Simpler approaches, Hidden complexity, Suggested story revisions)
+
+**Integration Tests**:
+
+- Verify skill can be loaded by vibe without errors
+- Verify skill follows vibe skill metadata conventions
+
+**E2E / Manual Validation**:
+
+- Run skill on at least one existing story from `work/backlog/backlog/` and verify it produces valid critique output
+- Verify critique output contains labeled sections matching opencode agent format
+- Verify skill maintains review-only mode (no implementation, no file writes outside `work/`)
+
+**Additional Checks (as applicable)**:
+
+- Verify constraints are preserved: review-only mode, file system writes limited to `work/`, allowed-tools limited to read_file, grep, glob
