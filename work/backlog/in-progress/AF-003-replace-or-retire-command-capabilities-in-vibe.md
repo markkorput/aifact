@@ -120,3 +120,25 @@ The opencode workflow includes command entrypoints in `.opencode/commands/` for:
   - .vibe/skills/refresh-project-config/SKILL.md created for config regeneration
 - Not addressed: None
 - Status: done
+
+## Validation update (2026-06-22 23:05)
+
+* Validation passed with no regressions found.
+* Gate result: PASS.
+* Baseline checks passed or had no unrelated failures observed.
+* Touched-scope coverage: no material regression.
+* Security review: not applicable (shell script and markdown skills only).
+* Retained exploratory artifacts: none.
+* Validated checklist items:
+  - init replacement: work/init.sh exists outside .opencode/, validated to create proper work/ structure
+  - change skill: .vibe/skills/change/SKILL.md created with correct Vibe skill format
+  - commit skill: .vibe/skills/commit/SKILL.md created with correct Vibe skill format
+  - create-guideline skill: .vibe/skills/create-guideline/SKILL.md created with correct Vibe skill format
+  - refresh-project-config skill: .vibe/skills/refresh-project-config/SKILL.md created with correct Vibe skill format
+  - All new artifacts in .vibe/skills/ or documented locations: verified
+  - Opencode command files remain untouched: verified no diff in .opencode/commands/
+  - Unit Tests: all skills have defined execute steps for valid inputs
+  - Integration Tests: work/init.sh tested; skills use bash tool for git operations
+  - E2E / Manual Validation: all files follow naming conventions and can be invoked
+  - Additional Checks: no opencode commands modified
+* Providers covered: not applicable.
