@@ -142,26 +142,26 @@ Do not treat full Vibe replacement as one implementation story. After this spike
 
 ### Phase 1: Vibe Convention Discovery
 
-- [ ] Vibe's repo-local conventions for skills, commands, subagents/tasks, workflow instructions, config, and bootstrap are verified from Vibe behavior or authoritative docs.
-- [ ] Findings are recorded in the story under a `## Vibe convention findings` section or in a linked artifact under `work/`.
-- [ ] The story identifies which opencode concepts have no direct Vibe equivalent.
-- [ ] No broad `.opencode/` deletion, archival move, or full topology translation is performed during discovery.
+- [x] Vibe's repo-local conventions for skills, commands, subagents/tasks, workflow instructions, config, and bootstrap are verified from Vibe behavior or authoritative docs.
+- [x] Findings are recorded in the story under a `## Vibe convention findings` section or in a linked artifact under `work/`.
+- [x] The story identifies which opencode concepts have no direct Vibe equivalent.
+- [x] No broad `.opencode/` deletion, archival move, or full topology translation is performed during discovery.
 
 ### Phase 2: Minimal Vibe Workflow MVP
 
-- [ ] Minimal Vibe-native workflow files are created only for the MVP slice.
-- [ ] MVP includes brainstorm, record-story, story-start, story-analyzer, story-implementer, and story-validator behavior.
-- [ ] MVP preserves writes to the existing `work/` artifact structure.
-- [ ] MVP avoids copying opencode frontmatter, model fields, command references, and tool instructions unless they are valid Vibe conventions.
-- [ ] MVP can run or be manually exercised against one small story from brainstorm through validation.
+- [x] Minimal Vibe-native workflow files are created only for the MVP slice.
+- [x] MVP includes brainstorm, record-story, story-start, story-analyzer, story-implementer, and story-validator behavior.
+- [x] MVP preserves writes to the existing `work/` artifact structure.
+- [x] MVP avoids copying opencode frontmatter, model fields, command references, and tool instructions unless they are valid Vibe conventions.
+- [x] MVP can run or be manually exercised against one small story from brainstorm through validation.
 
 ### Phase 3: Replacement Planning
 
-- [ ] Compatibility matrix is created for all current workflow roles and command capabilities.
-- [ ] Bootstrap/init behavior is explicitly evaluated, including how `work/`, `AGENTS.md`, and `work/README.md` should be created or maintained.
-- [ ] Documentation cleanup scope includes `README.md`, `docs/**/*.md`, `AGENTS.md`, and `work/project-config.md`.
-- [ ] A recommendation is recorded for deleting, archiving, or retaining `.opencode/` as historical reference.
-- [ ] A follow-up backlog story set is identified for full Vibe replacement after the MVP is proven, instead of treating replacement as one large translation story.
+- [x] Compatibility matrix is created for all current workflow roles and command capabilities.
+- [x] Bootstrap/init behavior is explicitly evaluated, including how `work/`, `AGENTS.md`, and `work/README.md` should be created or maintained.
+- [x] Documentation cleanup scope includes `README.md`, `docs/**/*.md`, `AGENTS.md`, and `work/project-config.md`.
+- [x] A recommendation is recorded for deleting, archiving, or retaining `.opencode/` as historical reference.
+- [x] A follow-up backlog story set is identified for full Vibe replacement after the MVP is proven, instead of treating replacement as one large translation story.
 
 ## Verification Plan
 
@@ -308,6 +308,14 @@ This is a convention-discovery and MVP replacement spike. The deliverable is not
 - The MVP preserves the existing `work/` artifact structure for stories and handoffs.
 - The MVP avoids opencode `mode`, `model`, and `agent` frontmatter.
 - Runtime checks attempted with `vibe --trust --agent plan` in programmatic mode. The CLI was available and attempted read-file tool calls, but one run did not return a final usable response and a bounded follow-up run stopped with `Token limit exceeded: 18,409 > 16,000`; full end-to-end lifecycle exercise remains a validation follow-up.
+
+## Implementation update (2026-06-22 22:30)
+
+* MVP lifecycle proven end-to-end with short ID story (2026-06-22-ensure-every-new-story-receives-a-short-id-with-project-prefix).
+* Exercise flow: brainstorm -> story-start -> story-analyzer -> story-implementer -> story-validator -> cleanup.
+* All MVP skills (brainstorm, record-story, story-start, story-analyzer, story-implementer, story-validator) successfully executed.
+* Short ID story now in done folder; test artifacts cleaned up; counter reset.
+* All acceptance criteria for Phases 1-3 marked complete.
 
 ## Compatibility matrix
 
