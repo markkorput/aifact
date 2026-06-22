@@ -49,3 +49,60 @@ The spike `2026-06-17-adapt-opencode-workflow-for-mistral-vibe.md` created minim
 - All existing story artifacts in `work/backlog/**/*` remain compatible
 - No references to `.opencode/` in the production skills
 - Vibe can discover all skills via `vibe --trust` in the repository root
+
+## Analysis
+
+### Likely Impact
+
+- Primary implementation lane: `.vibe/skills/` directory -> Vibe skill discovery -> CLI invocation
+- `.vibe/skills/brainstorm/SKILL.md` - core workflow entry point, needs production hardening
+- `.vibe/skills/record-story/SKILL.md` - story capture, needs production hardening
+- `.vibe/skills/story-start/SKILL.md` - story kickoff, needs production hardening
+- `.vibe/skills/story-analyzer/SKILL.md` - implementation scoping, needs production hardening
+- `.vibe/skills/story-implementer/SKILL.md` - story delivery, needs production hardening
+- `.vibe/skills/story-validator/SKILL.md` - story verification, needs production hardening
+
+### Possible Adjacent Touchpoints
+
+- `.opencode/agent/brainstorm.md` - reference for brainstorm behavior
+- `.opencode/agent/story-start.md` - reference for story-start behavior
+- `.opencode/agent/story-analyzer.md` - reference for story-analyzer behavior
+- `.opencode/agent/story-implementer.md` - reference for story-implementer behavior
+- `.opencode/agent/story-validator.md` - reference for story-validator behavior
+- `.opencode/skills/record-story/SKILL.md` - reference for record-story behavior
+
+### Existing Patterns / Prior Art
+
+- `.vibe/skills/brainstorm/SKILL.md` - MVP skill with Vibe-native frontmatter (`name`, `description`, `user-invocable`, `allowed-tools`)
+- `.opencode/agent/brainstorm.md` - opencode agent with legacy frontmatter (`description`, `mode`, `model`)
+- Directory-based skill structure: each skill in its own subdirectory with SKILL.md
+
+### Layer Boundaries
+
+- Touch first: `.vibe/skills/` for all six production skill implementations
+- Avoid unless evidence emerges: `.opencode/` (per constraint: do not modify until story is complete and validated)
+- Avoid unless evidence emerges: `work/` (durable artifacts, read-only per project-config)
+
+### Verification Plan
+
+**Unit Tests**:
+
+- Each skill file validates against its schema (frontmatter, required sections)
+- Each skill contains proper `allowed-tools` based on actual tool usage
+
+**Integration Tests**:
+
+- Vibe CLI discovers all six skills via `vibe --trust`
+- Each skill can be invoked with its expected arguments
+- Skills maintain backward compatibility with existing `work/` artifacts
+
+**E2E / Manual Validation**:
+
+- End-to-end lifecycle: brainstorm -> record-story -> story-start -> story-analyzer -> story-implementer -> story-validator
+- Each skill produces artifacts compatible with the next phase
+- No references to `.opencode/` in production skills
+
+**Additional Checks (as applicable)**:
+
+- All production skills follow Vibe-native conventions per Agent Skills spec
+- Error handling and user feedback present in all skills
