@@ -34,3 +34,53 @@ Currently stories are identified only by their date-prefixed filenames (e.g., `2
 - The sequential counter increments correctly for each new story regardless of which backlog directory it's saved to.
 - No existing stories are modified by this change.
 - The counter persists across Vibe sessions.
+
+## Analysis
+
+### Likely Impact
+
+- Primary implementation lane: `.vibe/skills/record-story/SKILL.md` - this skill contains the save rules that generate story filenames and must be modified to incorporate short ID generation.
+- `work/.story-counter` or similar - new durable file needed to persist the sequential counter across Vibe sessions.
+- Story filename format - will change from `YYYY-MM-DD-<slug>.md` to `<PREFIX>-<NNN>-YYYY-MM-DD-<slug>.md`.
+- Story title format - will need to include the short ID prefix.
+
+### Possible Adjacent Touchpoints
+
+- `.opencode/skills/record-story/SKILL.md` - the legacy version has similar save rules; may want to keep consistent if both workflows coexist temporarily.
+- Existing stories in `work/backlog/**/*` - must remain unchanged per backward compatibility requirement.
+
+### Existing Patterns / Prior Art
+
+- `.vibe/skills/record-story/SKILL.md` - closest pattern; already implements date-based filename generation that we will extend.
+- No existing counter or ID generation mechanism found in the repo.
+
+### Layer Boundaries
+
+- Touch first: `.vibe/skills/record-story/SKILL.md` save rules and template.
+- Touch first: Create persistent counter storage (e.g., `work/.story-counter`).
+- Avoid unless evidence emerges: retroactively modifying existing stories.
+- Avoid unless evidence emerges: changing the overall story artifact format beyond filename and title.
+
+### Verification Plan
+
+**Unit Tests**:
+
+- Verify counter file is created on first story recording.
+- Verify counter increments on subsequent story recordings.
+
+**Integration Tests**:
+
+- Verify new story filename includes short ID prefix.
+- Verify new story title includes short ID prefix.
+
+**E2E / Manual Validation**:
+
+- Record a new story and verify it receives ID AF-001.
+- Record a second story and verify it receives ID AF-002.
+- Verify both stories have correct filenames and titles.
+- Verify existing stories remain unchanged.
+
+**Additional Checks (as applicable)**:
+
+- Verify counter persists after Vibe session restart.
+- Verify short ID uniqueness across all backlog directories.
