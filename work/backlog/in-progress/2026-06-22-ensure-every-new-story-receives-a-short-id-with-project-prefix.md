@@ -84,3 +84,13 @@ Currently stories are identified only by their date-prefixed filenames (e.g., `2
 
 - Verify counter persists after Vibe session restart.
 - Verify short ID uniqueness across all backlog directories.
+
+## Validation update (2026-06-22 21:58)
+
+* Validation passed with no regressions found.
+* Gate result: PASS.
+* Baseline checks passed or had no unrelated failures observed.
+* Touched-scope coverage: no material regression.
+* Security review: not applicable.
+* Retained exploratory artifacts: work/backlog/backlog/AF-001-2026-06-22-test-short-id-generation.md, work/backlog/backlog/AF-002-2026-06-22-test-short-id-sequential.md, work/.story-counter.
+* Validated checklist items: New story filenames include short ID prefix (AF-001, AF-002), new story titles include short ID prefix, counter increments correctly (1->2->3), existing stories remain unchanged, counter file persists at work/.story-counter.
