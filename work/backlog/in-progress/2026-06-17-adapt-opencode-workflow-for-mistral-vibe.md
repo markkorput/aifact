@@ -203,3 +203,48 @@ Do not treat full Vibe replacement as one implementation story. After this spike
 ## Notes
 
 This is a convention-discovery and MVP replacement spike. The deliverable is not full workflow parity. Success is measured by: (1) Vibe conventions are verified, (2) a minimal Vibe-native lifecycle can use the existing `work/` artifacts, (3) hidden replacement complexity is captured in a compatibility matrix, and (4) the next full replacement story can be estimated without assuming that opencode topology maps directly to Vibe.
+
+## Analysis
+
+### Likely Impact
+
+- Primary implementation lane: Vibe convention discovery -> minimal Vibe-native workflow files for the MVP slice -> artifact-preserving lifecycle exercise -> compatibility/replacement notes recorded in the story or linked `work/` artifact.
+- Current active runtime surface is `.opencode/`-centered: `work/project-config.md` names `.opencode/agent/`, `.opencode/commands/`, `.opencode/skills/`, `.opencode/custom/init/`, and `.opencode/scripts/` as workflow implementation areas.
+- Minimal MVP source material should come first from `.opencode/agent/brainstorm.md`, `.opencode/skills/record-story/SKILL.md`, `.opencode/agent/story-start.md`, `.opencode/agent/story-analyzer.md`, `.opencode/agent/story-implementer.md`, and `.opencode/agent/story-validator.md` because those are the exact lifecycle roles named by the story.
+- The new Vibe-native workflow location/config is intentionally unknown until discovery; do not create a broad `.vibe/` mirror before Vibe repo-local conventions are verified.
+- Bootstrap behavior is likely in scope for evaluation, not full replacement: `.opencode/commands/init.md` delegates to `.opencode/custom/init/init.sh`, and that script creates `work/`, default `AGENTS.md`, `work/project-config.md`, and the `work/README.md` symlink.
+
+### Possible Adjacent Touchpoints
+
+- `AGENTS.md` - currently tells agents to treat `.opencode/` as the workflow implementation; may need a spike note or deferred replacement callout, but full rewrite should wait until Vibe MVP is proven.
+- `README.md` and `docs/**/*.md` - active docs describe `.opencode/` commands/agents and OpenAI-era assumptions; likely inputs to the compatibility matrix and stale-reference scan rather than first-pass full doc replacement.
+- `.opencode/commands/*.md` - command files show opencode-specific command entrypoint assumptions and agent routing; use them to classify capability outcomes, not as direct files to translate during the MVP.
+- `.opencode/custom/init/README.md` and prompt reference files - may need compatibility review because bootstrap/docs still include OpenAI/Codex-era prompt assets.
+
+### Existing Patterns / Prior Art
+
+- `.opencode/agent/story-analyzer.md` - closest pattern for durable handoff behavior: reads a story, performs bounded repo lookup, and writes `## Analysis` back into the story.
+- `.opencode/agent/story-implementer.md` and `.opencode/agent/story-validator.md` - closest examples for phase contracts that consume prior story sections and keep verification source-of-truth in `work/project-config.md`.
+- `.opencode/agent/story-start.md` - concrete kickoff mechanics for story movement, branch naming, and safe staging; reuse only if Vibe supports equivalent shell/git workflow assumptions.
+- `.opencode/skills/record-story/SKILL.md` - minimal reusable story recording contract; likely easiest MVP capability to adapt once Vibe skill/instruction conventions are known.
+- `.opencode/custom/init/init.sh` - prior art for preserving the durable `work/` artifact structure; do not treat its `.opencode` path or symlink target as Vibe-compatible without discovery.
+
+### Layer Boundaries
+
+- Touch first: newly discovered Vibe repo-local workflow/config files, MVP role/skill instructions for the six named lifecycle capabilities, and story-linked discovery/planning artifacts under `work/`.
+- Touch first for evidence only: `.opencode/agent/**`, `.opencode/skills/**`, `.opencode/commands/**`, and `.opencode/custom/init/**` as source material for the compatibility matrix and replacement plan.
+- Avoid unless evidence emerges: deleting, archiving, or mass-renaming `.opencode/`; rewriting all docs; changing durable story/idea/ADR/guideline formats; replacing release/PR/browser/advanced agents outside the MVP slice.
+- Avoid unless Vibe discovery requires it: changing `work/project-config.md` and `AGENTS.md` to declare Vibe as active before the MVP is proven and the replacement decision is recorded.
+
+### Verification Plan
+
+**E2E / Manual Validation**:
+
+- Manually exercise the minimal Vibe lifecycle against a small story: brainstorm -> record-story -> story-start -> story-analyzer -> story-implementer -> story-validator.
+- Confirm each exercised phase reads/writes the existing `work/` artifact locations and does not require `.opencode/` agents or commands at runtime.
+
+**Additional Checks (as applicable)**:
+
+- Verify Vibe conventions from authoritative docs or observed CLI behavior before creating repo-local workflow files.
+- Confirm the compatibility matrix accounts for every current agent, skill, command, bootstrap script, and support script named by `work/project-config.md` and the story.
+- Run a stale-reference check for `opencode`, `.opencode`, `OpenAI`, `Codex`, hardcoded model fields, and opencode-specific frontmatter before recommending full replacement work.
