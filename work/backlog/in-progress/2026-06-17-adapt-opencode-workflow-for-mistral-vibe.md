@@ -370,3 +370,13 @@ This is a convention-discovery and MVP replacement spike. The deliverable is not
 - Update README, docs, `AGENTS.md`, and `work/project-config.md` to present Vibe as the active supported runtime once replacement is proven.
 - Remove or archive `.opencode/` after Vibe parity and stale-reference cleanup are complete.
 - Evaluate advanced capabilities separately: PR workflow, release workflow, browser validation, external ideas review, agent-browser support, and optional subagent orchestration.
+
+## Validation update (2026-06-22 22:45)
+
+* Validation passed with no regressions found.
+* Gate result: PASS.
+* Baseline checks passed or had no unrelated failures observed.
+* Touched-scope coverage: no material regression.
+* Security review: not applicable.
+* Retained exploratory artifacts: .vibe/skills/{brainstorm,record-story,story-start,story-analyzer,story-implementer,story-validator}/SKILL.md, .vibe/README.md, work/backlog/done/2026-06-22-ensure-every-new-story-receives-a-short-id-with-project-prefix.md.
+* Validated checklist items: All Phase 1-3 acceptance criteria verified complete, MVP skills exist and are functional, Vibe convention findings documented, compatibility matrix comprehensive, replacement recommendation recorded, follow-up stories identified, .opencode/ preserved per constraints.
