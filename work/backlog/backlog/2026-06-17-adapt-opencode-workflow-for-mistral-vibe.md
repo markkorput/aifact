@@ -1,4 +1,4 @@
-# Replace Opencode Workflow with Mistral Vibe Workflow
+# Evaluate Minimal Mistral Vibe Workflow Replacement
 
 ## Type
 
@@ -8,167 +8,198 @@ spike
 
 The AiFact repository currently contains an artifact-based AI workflow oriented around OpenAI's opencode framework. The durable workflow artifacts live under `work/`, while the workflow implementation, commands, skills, bootstrap assets, and agent instructions are organized around `.opencode/` conventions and opencode-specific tool names.
 
-The intended target is now Mistral's Vibe coding agent, not a dual opencode/Vibe distribution. The repository should be refocused so its workflow files, documentation, bootstrap assets, and examples describe Vibe as the primary and only supported agent runtime.
+The intended target is now Mistral's Vibe coding agent, not a dual opencode/Vibe distribution. The repository should eventually be refocused so its workflow files, documentation, bootstrap assets, and examples describe Vibe as the primary and only supported agent runtime.
 
-Mistral Vibe has a different tool model and file convention than opencode. The replacement should preserve AiFact's artifact-first, phase-based delivery approach while removing opencode-specific runtime assumptions from the active workflow and user-facing documentation.
+The first step should not be a broad translation of the current `.opencode/` topology into a speculative `.vibe/` topology. The first step should prove a minimal Vibe-native workflow, learn Vibe's actual repo-local conventions, and record the replacement decisions before removing or reshaping the full active workflow surface.
+
+## Review Findings
+
+- The story correctly frames the desired end state as replacement, not coexistence.
+- The current active repo rules still name `.opencode/` as the workflow implementation in `AGENTS.md` and `work/project-config.md`.
+- The current workflow is concretely opencode-shaped: `.opencode/agent/`, `.opencode/commands/`, `.opencode/skills/`, `.opencode/custom/init/`, and `.opencode/scripts/` are all part of the active workflow surface.
+- The docs surface is broader than the initial story implied: `README.md` points to `docs/**/*.md`, and those docs contain opencode/OpenAI-era references that must be accounted for during replacement.
+- Bootstrap is a hidden risk because the current init command calls `.opencode/custom/init/init.sh`, which creates `work/`, default `AGENTS.md`, and `work/README.md` symlink behavior.
+- The role and command files cannot be safely translated by path and terminology alone because they include opencode-specific frontmatter, model fields, delegation assumptions, command references, and tool guidance.
+- There is no ADR yet documenting Vibe as the supported runtime or the fate of `.opencode/`.
 
 ## Functional Requirements
 
-- Replace the active opencode-oriented workflow with a Vibe-oriented workflow
-- Preserve the artifact-first approach with `work/` as the durable source of truth
-- Preserve the phase-based story lifecycle: brainstorm -> start -> analyze -> implement -> validate -> done -> PR
-- Preserve current workflow capabilities where they remain relevant: brainstorming, story recording, lifecycle execution, validation, PR creation, release support, and guideline/ADR/idea recording
-- Support Vibe-native tools and conventions instead of opencode-specific tools and conventions
-- Update user-facing documentation so new users are guided to Vibe, not opencode
-- Remove or archive opencode-oriented files from the active workflow surface rather than presenting Vibe as an additional alternative
+- Build the smallest useful Vibe-native workflow slice before replacing the full opencode workflow.
+- Discover and document Vibe's actual conventions for repo-local skills, commands, subagents, workflow instructions, and configuration.
+- Preserve the artifact-first approach with `work/` as the durable source of truth.
+- Prove a minimal phase-based lifecycle in Vibe: brainstorm -> record-story -> story-start -> story-analyzer -> story-implementer -> story-validator.
+- Preserve existing artifact formats for stories, ideas, ADRs, guidelines, project config, and releases unless a Vibe limitation requires an explicit decision.
+- Avoid presenting Vibe as a long-term alternative to opencode; this spike should prepare the replacement path.
+- Do not remove or archive the active opencode workflow until the minimal Vibe workflow is proven and the replacement decision is recorded.
 
 ## Technical Requirements
 
 ### Implementation Approach
 
-Replace the active opencode workflow surface with a Vibe workflow surface. The expected end state is that repository instructions, bootstrap assets, workflow definitions, and examples all target Vibe.
+Start with a minimal Vibe workflow evaluation, not a full topology translation.
 
-Candidate Vibe structure:
+The spike should produce:
 
-.vibe/
-├── agents/              # Vibe-compatible agent profiles, if Vibe supports this convention
-├── commands/            # Vibe-compatible command entry points, if supported
-├── skills/              # Vibe-compatible reusable skills
-│   ├── agent-browser/   # Browser automation support adapted for Vibe
-│   ├── record-adr/
-│   ├── record-guideline/
-│   ├── record-idea/
-│   └── record-story/
-├── workflow/            # Workflow orchestration, if needed
-├── config/              # Vibe-specific configuration
-└── scripts/             # Support scripts that remain necessary for Vibe
+- A verified description of Vibe's supported repo-local conventions.
+- A minimal Vibe-native workflow structure using those conventions.
+- A minimal set of Vibe workflow instructions or skills needed to run one story through analysis, implementation, and validation.
+- A compatibility matrix for existing AiFact roles and command capabilities.
+- A recommended replacement plan for the active opencode workflow surface.
 
-The final structure should follow Vibe's actual supported conventions. If Vibe does not support a direct equivalent for any opencode concept, adapt the workflow to the closest Vibe-native primitive rather than preserving the opencode shape.
+### Minimal Vibe Workflow Slice
 
-### Replacement Rules
+The MVP should include only the capabilities needed to evaluate Vibe conventions and prove the core lifecycle:
 
-1. Runtime Identity:
-   - Replace opencode terminology with Vibe terminology in active files and docs
-   - Do not describe Vibe as an optional alternative to opencode
-   - Remove opencode model references and opencode-specific agent mode concepts from the active workflow
+- brainstorm
+- record-story
+- story-start
+- story-analyzer
+- story-implementer
+- story-validator
 
-2. Tool References:
-   - Replace opencode tool references with Vibe-native equivalents where available
-   - Replace `apply_patch` guidance with Vibe editing guidance
-   - Replace `multi_tool_use.parallel` guidance with Vibe-appropriate task/tool usage guidance
-   - Replace opencode-specific web/tool references with Vibe-supported web and task tools
+Defer full replacement of these capabilities until after the MVP proves the conventions:
 
-3. File and Path References:
-   - Replace active `.opencode/` path references with Vibe paths
-   - Update `README.md`, `AGENTS.md`, bootstrap assets, command references, and project configuration to describe the Vibe workflow
-   - Remove stale opencode-oriented setup instructions from user-facing documentation
+- story-builder
+- story-reviewer
+- story-done
+- story-pr
+- story-execute-orchestrator
+- story-ship-orchestrator
+- browser-validator
+- external-ideas-reviewer
+- lightweight-command-runner
+- ad-hoc-implementer
+- release
+- change
+- commit
+- create-guideline
+- refresh-project-config
+- agent-browser
+- record-adr
+- record-guideline
+- record-idea
 
-4. Workflow Preservation:
-   - Preserve the durable `work/` artifact model
-   - Preserve story, idea, ADR, guideline, release, and project config artifact formats unless a Vibe-specific requirement justifies changing them
-   - Preserve phase responsibilities while adapting handoff mechanics to Vibe
+### Convention Discovery
 
-### Skill-Specific Adaptations
+Before creating a broad `.vibe/` tree, verify and record:
 
-| Current Capability | Replacement Strategy | Complexity |
-|--------------------|----------------------|------------|
-| record-adr | Port to Vibe-native skill format while preserving artifact output | Low |
-| record-guideline | Port to Vibe-native skill format while preserving strict guideline formatting | Low |
-| record-idea | Port to Vibe-native skill format while preserving idea location and grouping behavior | Low |
-| record-story | Port to Vibe-native skill format while preserving backlog template behavior | Low |
-| agent-browser | Rework around Vibe web/task capabilities plus browser CLI fallback where needed | Medium |
+- Where Vibe expects repo-local instructions, skills, commands, subagents, or workflow files.
+- Which frontmatter or metadata fields Vibe supports.
+- How Vibe invokes skills and task/subagent behavior.
+- How Vibe exposes editing, shell, search, web, and browser-adjacent tools.
+- Whether Vibe supports command entry points analogous to the current `.opencode/commands/` files.
+- Whether Vibe supports a repo-local bootstrap/init pattern or whether bootstrap should remain shell/documentation-driven.
 
-### Workflow Roles to Replace
+### Active Workflow Surface to Evaluate
 
-- brainstorm.md
-- story-start.md
-- story-builder.md
-- story-analyzer.md
-- story-reviewer.md
-- story-implementer.md
-- story-execute-orchestrator.md
-- story-validator.md
-- story-done.md
-- story-pr.md
-- story-ship-orchestrator.md
-- browser-validator.md
-- external-ideas-reviewer.md
-- lightweight-command-runner.md
-- ad-hoc-implementer.md
+The replacement plan must explicitly account for:
 
-### Command Capabilities to Replace
+- `AGENTS.md`
+- `README.md`
+- `docs/**/*.md`
+- `work/project-config.md`
+- `.opencode/agent/**`
+- `.opencode/commands/**`
+- `.opencode/skills/**`
+- `.opencode/custom/init/**`
+- `.opencode/scripts/**`
+- any future Vibe-native workflow directory or config files
 
-- init.md
-- change.md
-- commit.md
-- create-guideline.md
-- refresh-project-config.md
-- release.md
+### Compatibility Matrix
+
+Create a matrix for each existing role and command capability with one of these outcomes:
+
+- Vibe-native equivalent exists
+- Adapt with changed mechanics
+- Retire from the Vibe workflow
+- Defer until a later story
+- Blocked by missing or unknown Vibe capability
+
+The matrix should call out bootstrap behavior, docs impact, handoff mechanics, tool usage, and artifact write paths where relevant.
+
+### Replacement Decision
+
+Record a decision recommendation for the fate of `.opencode/`:
+
+- delete it after Vibe parity is proven,
+- move it to an explicitly archival location,
+- or keep a historical reference with clear exclusion from active workflow instructions.
+
+The recommendation should include the impact on `AGENTS.md`, `work/project-config.md`, README/docs, bootstrap behavior, and stale-reference checks.
+
+### Follow-up Story Breakdown
+
+Do not treat full Vibe replacement as one implementation story. After this spike, split the remaining work into smaller stories such as:
+
+- Replace core workflow roles with Vibe-native equivalents after the MVP proves conventions.
+- Replace or retire command capabilities using Vibe-supported command or workflow mechanics.
+- Replace bootstrap/init behavior for Vibe while preserving the `work/` artifact structure.
+- Update README, docs, `AGENTS.md`, and `work/project-config.md` to make Vibe the active supported runtime.
+- Remove, archive, or explicitly de-activate `.opencode/` after the replacement decision is recorded.
+- Replace advanced capabilities separately: PR workflow, release workflow, browser validation, external ideas review, and optional agent-browser support.
 
 ## Acceptance Criteria
 
-### Phase 1: Replacement Structure & Core Workflow
-- [ ] Vibe-native workflow directory structure created
-- [ ] Active opencode-oriented workflow files removed, archived, or replaced so the active workflow surface targets Vibe
-- [ ] Core workflow roles replaced for Vibe: brainstorm, story-analyzer, story-implementer, story-validator
-- [ ] Record skills replaced for Vibe: record-story, record-idea, record-adr, record-guideline
-- [ ] `AGENTS.md` updated to reference the Vibe workflow as the active workflow
-- [ ] `work/project-config.md` updated so repo structure, domain rules, and loading rules reference Vibe instead of opencode
-- [ ] Basic workflow tested in Vibe: brainstorm -> record-story -> story-start -> story-analyzer -> story-implementer
+### Phase 1: Vibe Convention Discovery
 
-### Phase 2: Complete Workflow Role Replacement
-- [ ] All existing workflow roles have Vibe-native equivalents or an explicit removal decision
-- [ ] Handoff patterns are adapted to Vibe task/subagent mechanics
-- [ ] Tool references are updated throughout active workflow files
-- [ ] Model-specific OpenAI/opencode instructions are removed or replaced with Mistral/Vibe-appropriate guidance
+- [ ] Vibe's repo-local conventions for skills, commands, subagents/tasks, workflow instructions, config, and bootstrap are verified from Vibe behavior or authoritative docs.
+- [ ] Findings are recorded in the story under a `## Vibe convention findings` section or in a linked artifact under `work/`.
+- [ ] The story identifies which opencode concepts have no direct Vibe equivalent.
+- [ ] No broad `.opencode/` deletion, archival move, or full topology translation is performed during discovery.
 
-### Phase 3: Commands, Bootstrap & Documentation
-- [ ] All command capabilities are replaced with Vibe-native equivalents or explicitly retired
-- [ ] Bootstrap/init assets install or explain the Vibe workflow, not opencode
-- [ ] README and user-facing docs describe Vibe as the supported runtime
-- [ ] Any migration guidance explains replacement from opencode to Vibe, not long-term coexistence
-- [ ] Browser validation and external ideas review either work in Vibe or are documented as deferred/unsupported
+### Phase 2: Minimal Vibe Workflow MVP
 
-### Phase 4: Validation & Cleanup
-- [ ] Full end-to-end workflow tested with a real story using Vibe
-- [ ] Artifacts persist correctly in `work/`
-- [ ] Active docs and workflow files no longer instruct users to configure or use opencode
-- [ ] Stale opencode-only files are removed or moved out of the active workflow path
-- [ ] Remaining historical opencode references are clearly archival, not active instructions
+- [ ] Minimal Vibe-native workflow files are created only for the MVP slice.
+- [ ] MVP includes brainstorm, record-story, story-start, story-analyzer, story-implementer, and story-validator behavior.
+- [ ] MVP preserves writes to the existing `work/` artifact structure.
+- [ ] MVP avoids copying opencode frontmatter, model fields, command references, and tool instructions unless they are valid Vibe conventions.
+- [ ] MVP can run or be manually exercised against one small story from brainstorm through validation.
+
+### Phase 3: Replacement Planning
+
+- [ ] Compatibility matrix is created for all current workflow roles and command capabilities.
+- [ ] Bootstrap/init behavior is explicitly evaluated, including how `work/`, `AGENTS.md`, and `work/README.md` should be created or maintained.
+- [ ] Documentation cleanup scope includes `README.md`, `docs/**/*.md`, `AGENTS.md`, and `work/project-config.md`.
+- [ ] A recommendation is recorded for deleting, archiving, or retaining `.opencode/` as historical reference.
+- [ ] A follow-up backlog story set is identified for full Vibe replacement after the MVP is proven, instead of treating replacement as one large translation story.
 
 ## Verification Plan
 
-### Unit Checks
-- Exercise each Vibe workflow role individually with sample inputs
-- Verify each Vibe skill produces correct artifacts in `work/`
-- Exercise each Vibe command or command-equivalent in isolation
+### Convention Checks
 
-### Integration Checks
-- Test brainstorm -> record-story flow in Vibe
-- Test story-start -> story-analyzer -> story-implementer -> story-validator flow in Vibe
-- Test complete story lifecycle from backlog to done in Vibe
+- Verify Vibe can discover and use the minimal repo-local workflow files in the chosen structure.
+- Verify the chosen structure follows Vibe-supported conventions rather than a renamed opencode topology.
+- Verify unsupported opencode concepts are documented instead of silently copied.
 
-### Replacement Checks
-- Verify artifact formats remain compatible with existing `work/` files
-- Verify handoff between phases works correctly in Vibe
-- Verify documentation and bootstrap instructions no longer point users to opencode as the active runtime
+### Workflow Checks
+
+- Exercise brainstorm -> record-story in Vibe.
+- Exercise story-start -> story-analyzer -> story-implementer -> story-validator in Vibe.
+- Verify the resulting artifacts persist in the existing `work/` locations.
+- Verify the MVP does not require `.opencode/` commands or agents at runtime.
+
+### Replacement Readiness Checks
+
+- Search active docs and workflow instructions for stale `opencode`, `.opencode`, `OpenAI`, `Codex`, and hardcoded model references.
+- Verify the compatibility matrix accounts for every current role and command capability before full replacement work begins.
+- Verify the `.opencode/` fate recommendation is explicit enough to split into implementation stories.
 
 ## Dependencies
 
-- Vibe CLI installed and configured
-- Access to the required Mistral model configuration for Vibe
-- Git installed for version control operations
-- Optional: gh CLI for PR workflows
-- Optional: agent-browser CLI for complex browser automation
+- Vibe CLI installed and configured.
+- Access to the required Mistral model configuration for Vibe.
+- Git installed for version control operations.
+- Optional: gh CLI for later PR workflow replacement.
+- Optional: agent-browser CLI for later browser validation replacement.
 
 ## Constraints
 
-- Do not maintain opencode as an active supported workflow in this repository
-- Maintain artifact compatibility with the `work/` directory structure
-- Keep the same phase-based workflow model unless a Vibe limitation requires an explicit product decision
-- Prefer Vibe-native conventions over direct one-for-one opencode shape preservation
-- Test each component before integrating into the full workflow
+- Do not maintain opencode as a long-term active supported workflow in this repository.
+- Do not translate the full `.opencode/` topology before validating Vibe conventions.
+- Do not remove or archive `.opencode/` until the MVP is proven and a replacement decision is recorded.
+- Maintain compatibility with the existing `work/` directory structure.
+- Prefer Vibe-native conventions over one-for-one opencode shape preservation.
 
 ## Notes
 
-This is a meta-workflow replacement task. The deliverable is not application functionality but the repository workflow infrastructure and documentation needed for Vibe to be the supported AiFact runtime. Success is measured by: (1) Vibe can successfully execute the full story workflow, (2) artifacts are created in the correct locations with correct formats, (3) the workflow feels natural to Vibe users, and (4) active repository instructions no longer present opencode as the supported workflow.
+This is a convention-discovery and MVP replacement spike. The deliverable is not full workflow parity. Success is measured by: (1) Vibe conventions are verified, (2) a minimal Vibe-native lifecycle can use the existing `work/` artifacts, (3) hidden replacement complexity is captured in a compatibility matrix, and (4) the next full replacement story can be estimated without assuming that opencode topology maps directly to Vibe.
