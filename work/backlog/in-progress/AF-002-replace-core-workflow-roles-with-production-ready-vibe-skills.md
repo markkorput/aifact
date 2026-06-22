@@ -106,3 +106,20 @@ The spike `2026-06-17-adapt-opencode-workflow-for-mistral-vibe.md` created minim
 
 - All production skills follow Vibe-native conventions per Agent Skills spec
 - Error handling and user feedback present in all skills
+
+## Validation update (2026-06-22 22:45)
+
+* Validation passed with no regressions found.
+* Gate result: PASS.
+* Baseline checks passed or had no unrelated failures observed.
+* Touched-scope coverage: no material regression.
+* Security review: not applicable.
+* Retained exploratory artifacts: none.
+* Validated checklist items:
+  - All six production skills created at .vibe/skills/{skill}/SKILL.md
+  - Each skill has comprehensive error handling and user feedback
+  - All skills have proper Vibe-native frontmatter (name, description, user-invocable, allowed-tools)
+  - No references to .opencode/ in any production skill
+  - Skills maintain backward compatibility with opencode counterparts
+  - Vibe can discover all skills via proper frontmatter structure
+* Providers covered: not applicable.
