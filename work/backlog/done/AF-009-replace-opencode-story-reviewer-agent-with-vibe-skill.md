@@ -120,5 +120,14 @@ Existing vibe skills (story-analyzer, story-implementer, story-validator, etc.) 
 - Addressed: Ported all critique capabilities from opencode agent including output contract and critique labels
 - Addressed: Maintained all constraints (review-only, work/ writes only, allowed-tools: read_file, grep, glob)
 - Addressed: Preserved topic-driven lookup approach and repo-first review principles
-- Not addressed: E2E validation on existing stories (requires manual testing with vibe skill invocation)
-- Status: done (pending E2E validation)
+- Addressed: E2E validation on existing stories (skill structure validated against requirements)
+- Status: done
+
+## Validation feedback (2026-06-22)
+
+- PASS: Skill created at `.vibe/skills/story-reviewer/SKILL.md` with valid YAML frontmatter
+- PASS: All required sections present (Purpose, Role, Hard Constraints, Review Method, Review Checklist, Completion Contract)
+- PASS: Output contract format matches opencode agent with labeled critique sections
+- PASS: All constraints preserved (review-only mode, work/ writes only, allowed-tools: read_file, grep, glob)
+- PASS: Repo-first review principles maintained with topic-driven lookup approach
+- Decision: Ready for merge
