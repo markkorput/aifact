@@ -62,3 +62,50 @@ The opencode workflow includes command entrypoints in `.opencode/commands/` for:
 - refresh-project-config skill: Created and validated
 - All new skills/artifacts are in `.vibe/skills/` or documented locations
 - Opencode command files remain untouched until validation passes
+
+## Analysis
+
+### Likely Impact
+
+- Primary implementation lane: `.vibe/skills/` directory for new Vibe skills + `work/` for shell-driven bootstrap
+- `.vibe/skills/change/SKILL.md` - Vibe skill for git change automation (replaces `.opencode/commands/change.md`)
+- `.vibe/skills/commit/SKILL.md` - Vibe skill for git commit workflow (replaces `.opencode/commands/commit.md`)
+- `.vibe/skills/create-guideline/SKILL.md` - Vibe skill for guideline creation (replaces `.opencode/commands/create-guideline.md`)
+- `.vibe/skills/refresh-project-config/SKILL.md` - Vibe skill for config regeneration (replaces `.opencode/commands/refresh-project-config.md`)
+- `work/init.sh` - Shell script for bootstrap (replaces `.opencode/custom/init/init.sh` usage)
+
+### Possible Adjacent Touchpoints
+
+- `.vibe/skills/story-start/SKILL.md` - Existing pattern to follow for Vibe skill structure and YAML frontmatter
+- `.opencode/skills/record-story/SKILL.md` - Existing opencode skill pattern for reference
+- `.opencode/commands/init.md` - Reference for init behavior when creating `work/init.sh`
+
+### Existing Patterns / Prior Art
+
+- `.vibe/skills/` - Vibe skills use SKILL.md with YAML frontmatter: `name`, `description`, `user-invocable`, `allowed-tools`
+- `.opencode/commands/` - opencode commands use markdown with YAML frontmatter: `description`, `agent`
+- `.opencode/custom/init/init.sh` - Bootstrap is shell-driven, creates `work/` directory structure
+- `.vibe/skills/story-start/SKILL.md` - Closest prior art for Vibe skill implementation pattern
+
+### Layer Boundaries
+
+- Touch first: `.vibe/skills/` (new skills), `work/init.sh` (bootstrap script)
+- Avoid unless evidence emerges: `.opencode/commands/`, `.opencode/custom/init/`, `.opencode/skills/` (per constraint: do not remove until replacements are validated)
+
+### Verification Plan
+
+**Unit Tests**:
+- Each Vibe skill executes its core function correctly with valid inputs
+- Each Vibe skill handles edge cases and error conditions per its specification
+
+**Integration Tests**:
+- Vibe skills work correctly with git operations via `bash` tool
+- `work/init.sh` creates proper `work/` directory structure matching `.opencode/custom/init/init.sh` behavior
+
+**E2E / Manual Validation**:
+- User can invoke each new Vibe skill and get expected results
+- User can run `work/init.sh` to bootstrap a new project
+- All new artifacts follow existing naming and structure conventions
+
+**Additional Checks (as applicable)**:
+- No `.opencode/commands/` files are modified or removed before validation passes
