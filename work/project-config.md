@@ -22,7 +22,8 @@ If another repo document conflicts with this file, follow this file.
 - `work/project-config.md` is the main repo-local operating context file.
 - `work/backlog/backlog/`, `work/backlog/planned/`, `work/backlog/in-progress/`, and `work/backlog/done/` hold story state.
 - `work/ideas/ideas/` and `work/ideas/Inbox.md` hold early-stage ideas.
-- `work/guidelines/`, `work/adr/`, and `work/releases/` exist but currently contain only scaffold files.
+- `work/guidelines/` and `work/adr/` exist but currently contain only scaffold files.
+- `work/releases/` contains release artifacts, including `0.1.0/` and `releases.md`.
 
 ## Output Rules
 
@@ -57,6 +58,7 @@ If another repo document conflicts with this file, follow this file.
 
 - Markdown is the primary artifact format for agent definitions, commands, skills, and human-readable documentation.
 - Shell scripting is used for bootstrap and support automation in `.opencode/custom/init/init.sh` and `.opencode/scripts/`.
+- Markdown is used for Vibe skills in `.vibe/skills/`.
 - No language-specific build, test, or application runtime stack is verified outside the workflow assets above.
 
 ## Review Rules
