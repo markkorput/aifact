@@ -145,3 +145,46 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 - [ ] Documentation in `.aifact/README.md` explains the structure and usage pattern
 - [ ] Existing `.opencode/`, `.vibe/`, and `work/` files remain unchanged and functional
 - [ ] Symlink activation test: copying `.aifact/` to a test project and symlinking a harness folder works correctly
+
+---
+
+## Review findings (2026-06-24)
+
+### Architecture fit concerns
+
+- **Harness discovery problem**: Symlink activation pattern creates circular dependency. Harness files in `.aifact/harnesses/opencode/` need to reference core workflows in `.aifact/workflows/`, but after symlinking `.aifact/harnesses/opencode` to `.opencode`, relative paths like `../../workflows/` would be needed, which breaks portability.
+- **Constraint violation risk**: Symlinking harness folders to project root would overwrite existing `.opencode/` and `.vibe/` directories, violating the "do not modify any existing files" constraint (line 121).
+- **Portability vs. existing state**: Existing projects have `.opencode/` and `.vibe/` folders. Symlink activation pattern requires replacing existing directories with symlinks, which is destructive, not additive.
+
+### Failure modes
+
+- **Symlink activation failure**: If user symlinks `.aifact/harnesses/opencode` to `.opencode`, existing `.opencode/` directory (with `node_modules/`, `package.json`, etc.) would be obscured. Story doesn't specify whether harness folders include supporting infrastructure.
+- **Reference integrity failure**: Core workflows use pure narrative markdown. Harness implementations need to reference these, but story doesn't specify the mechanism. Relative paths would break when `.aifact/` is copied or symlinked.
+- **Version drift**: Existing `.opencode/` files remain unchanged (backward compatibility), but new harness files in `.aifact/` could evolve separately, creating two sources of truth.
+
+### Hidden complexity
+
+- **Harness folder completeness**: Structure shows only workflow files in harness folders (lines 49-64), but real harnesses need infrastructure (`node_modules/`, `scripts/`, `custom/init/`). Gap not addressed.
+- **AGENTS.md symlink conflict**: Story suggests symlinking AGENTS.md (line 84), but repo root already has `AGENTS.md`. This would overwrite it.
+- **README.md symlink**: Repo already has `README.md -> .opencode/custom/init/README.md`. New structure doesn't specify how this is handled.
+
+### Simpler approaches
+
+- Git submodules instead of copying `.aifact/` into projects would preserve versioning and updates.
+- Include directives (preprocessor-based) could inject harness-specific sections into core workflows, though story rejects preprocessing (line 97).
+- Start with Foundation group only (4 workflows per lines 136-140) instead of all 9 workflows.
+
+### Open questions
+
+1. How do harness files reference core workflows? Relative paths break with symlinks, absolute paths aren't portable.
+2. What happens to existing harness infrastructure (`node_modules/`, `scripts/`, `custom/init/`)?
+3. How is the AGENTS.md conflict resolved when symlinking?
+4. How is the README.md symlink handled with the new structure?
+
+### Suggested story revisions
+
+- Clarify reference mechanism between harness files and core workflows (relative paths won't work with symlinks)
+- Address conflict between symlink activation and existing `.opencode/`/`.vibe/` directories
+- Specify whether harness folders include only workflow definitions or full infrastructure
+- Remove or clarify the AGENTS.md symlink suggestion which conflicts with existing file
+- Clarify README.md handling in new structure
