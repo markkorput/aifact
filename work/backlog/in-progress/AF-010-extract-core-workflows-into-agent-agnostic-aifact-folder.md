@@ -205,3 +205,17 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 **Additional Checks (as applicable)**:
 - Verify backward compatibility: existing workflows continue to work unchanged
 
+## Implementation update (2026-06-26 00:00)
+
+- Addressed: All acceptance criteria implemented
+  - `.aifact/` directory created with README.md
+  - 10 core workflow definitions created in `.aifact/workflows/`
+  - Full opencode implementations in `.aifact/harnesses/opencode/`
+  - Full vibe implementations in `.aifact/harnesses/vibe/`
+  - Core workflows use pure narrative markdown format
+  - Harness files reference core workflows with relative paths
+  - Documentation explains structure and usage pattern
+  - Existing `.opencode/`, `.vibe/`, and `work/` files remain unchanged
+  - Activation script `.aifact/init` created and tested
+- Not addressed: None
+- Status: done
