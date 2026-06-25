@@ -209,11 +209,11 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 
 - Addressed: All acceptance criteria implemented
   - `.aifact/` directory created with README.md
-  - 10 core workflow definitions created in `.aifact/workflows/`
-  - Full opencode implementations in `.aifact/harnesses/opencode/`
-  - Full vibe implementations in `.aifact/harnesses/vibe/`
-  - Core workflows use pure narrative markdown format
-  - Harness files reference core workflows with relative paths
+  - 10 core workflow definitions created in `.aifact/workflows/` (pure narrative markdown)
+  - Thin opencode harness adapters in `.aifact/harnesses/opencode/` (reference core workflows)
+  - Thin vibe harness adapters in `.aifact/harnesses/vibe/` (reference core workflows)
+  - Core workflows use pure narrative markdown format without tool calls
+  - Harness files are minimal wrappers that reference core workflows and add harness-specific frontmatter/constraints
   - Documentation explains structure and usage pattern
   - Existing `.opencode/`, `.vibe/`, and `work/` files remain unchanged
   - Activation script `.aifact/init` created and tested

@@ -9,36 +9,18 @@ allowed-tools:
 
 # Commit
 
-> **Core Workflow**: See `../../../../workflows/commit.md` for the harness-agnostic workflow definition.
+> **Core Workflow**: See `../../../../workflows/commit.md`
 
 **Arguments:** $ARGUMENTS (optional commit message hint)
 
-Create a conventional commit from current changes following project conventions.
+Follow the core workflow definition and adapt for Mistral Vibe harness.
 
-## Purpose
-
-Create a Conventional Commit from current changes. Replaces opencode commit command.
-
-## Hard Constraints
+## Hard Constraints (Vibe-specific)
 
 - Only commit staged changes
 - Do not commit if there are unstaged changes that should be included
-- Commit message must follow conventional commit format
-- Do not modify files outside git operations
+- File system writes limited to git operations only
 
-## Execute
+## Execution
 
-1. Read `work/project-config.md` first
-2. Check git status for staged changes
-3. Verify only intended changes are staged
-4. Generate conventional commit message (feat, fix, chore, docs, style, refactor, perf, test)
-5. Create commit with message
-6. Return commit hash and message
-
-## Output Contract
-
-- New git commit with staged changes
-- Commit message follows conventional commit format
-- Return commit hash (SHA)
-- Return commit message
-- Return number of files changed
+Follow steps from core workflow using Vibe tool names (`bash`, `git`).
