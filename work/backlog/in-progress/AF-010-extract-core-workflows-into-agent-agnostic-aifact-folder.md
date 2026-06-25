@@ -159,3 +159,49 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 
 ---
 
+## Analysis
+
+### Likely Impact
+
+- Primary implementation lane: `.aifact/` directory creation -> `.aifact/workflows/` core definitions -> `.aifact/harnesses/{opencode,vibe}/` implementations -> `.aifact/init` activation script -> `.aifact/README.md` documentation
+- `.aifact/` - New root directory for the framework (verified: does not exist yet)
+- `.aifact/workflows/*.md` - Core workflow definitions in pure narrative markdown (10 files specified)
+- `.aifact/harnesses/opencode/` - Full opencode harness implementation directory structure
+- `.aifact/harnesses/vibe/` - Full vibe harness implementation directory structure
+- `.aifact/init` - Activation script for generating harness-specific pointer files
+- `.aifact/README.md` - Human-oriented documentation explaining structure and usage
+
+### Possible Adjacent Touchpoints
+
+- `.opencode/agent/**/*`, `.opencode/commands/**/*`, `.opencode/skills/**/*` - Existing opencode harness files that serve as source material for `.aifact/harnesses/opencode/` (must not be modified per constraint)
+- `.vibe/skills/**/SKILL.md` - Existing vibe harness files that serve as source material for `.aifact/harnesses/vibe/` (must not be modified per constraint)
+
+### Existing Patterns / Prior Art
+
+- `.opencode/agent/brainstorm.md` and `.vibe/skills/brainstorm/SKILL.md` - Example of duplicated workflow logic across harnesses; demonstrates the need for core workflow extraction
+- `.opencode/custom/init/init.sh` - Existing bootstrap pattern; `.aifact/init` should follow similar user-prompt-before-overwrite behavior
+- Directory structures: `.opencode/agent/`, `.opencode/commands/`, `.opencode/skills/` for opencode; `.vibe/skills/{skill-name}/SKILL.md` for vibe
+
+### Layer Boundaries
+
+- Touch first: `.aifact/` directory structure and core workflow files
+- Avoid unless evidence emerges: Any modifications to existing `.opencode/` or `.vibe/` files (explicit constraint in story)
+
+### Verification Plan
+
+**Unit Tests**:
+- Verify each core workflow file in `.aifact/workflows/` is pure narrative markdown without tool calls
+- Verify harness files reference core workflows using relative paths
+
+**Integration Tests**:
+- Verify `.aifact/harnesses/opencode/` contains complete, working implementations
+- Verify `.aifact/harnesses/vibe/` contains complete, working implementations
+
+**E2E / Manual Validation**:
+- Copy `.aifact/` to a test project and run init script
+- Verify harness discovery works correctly for both opencode and vibe
+- Verify existing `.opencode/` and `.vibe/` workflows remain unchanged and functional
+
+**Additional Checks (as applicable)**:
+- Verify backward compatibility: existing workflows continue to work unchanged
+
