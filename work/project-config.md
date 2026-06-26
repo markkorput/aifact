@@ -12,18 +12,16 @@ If another repo document conflicts with this file, follow this file.
 
 ## Repo Structure
 
-- Top-level layout is minimal: `.opencode/` holds the current active legacy workflow implementation, `.vibe/` holds the minimal Vibe MVP evaluation surface, `work/` holds durable project artifacts, and `README.md` describes the framework.
+- Top-level layout is minimal: `.opencode/` holds the workflow implementation, `work/` holds durable project artifacts, and `README.md` describes the framework.
 - `.opencode/agent/` contains the primary agent definitions for the workflow.
 - `.opencode/commands/` contains command entry points such as `init`, `refresh-project-config`, `change`, `commit`, `create-guideline`, and `release`.
 - `.opencode/skills/` contains reusable skills such as `record-story`, `record-idea`, `record-guideline`, `record-adr`, and `agent-browser`.
 - `.opencode/custom/init/` contains the repo bootstrap assets, including `init.sh`, prompt reference files, and the project README source.
 - `.opencode/scripts/` contains support scripts used by workflow automation.
-- `.vibe/skills/` contains the minimal Vibe Code skill MVP used to evaluate the replacement path.
 - `work/project-config.md` is the main repo-local operating context file.
 - `work/backlog/backlog/`, `work/backlog/planned/`, `work/backlog/in-progress/`, and `work/backlog/done/` hold story state.
 - `work/ideas/ideas/` and `work/ideas/Inbox.md` hold early-stage ideas.
-- `work/guidelines/` and `work/adr/` exist but currently contain only scaffold files.
-- `work/releases/` contains release artifacts, including `0.1.0/` and `releases.md`.
+- `work/guidelines/`, `work/adr/`, and `work/releases/` exist but currently contain only scaffold files.
 
 ## Output Rules
 
@@ -39,7 +37,7 @@ If another repo document conflicts with this file, follow this file.
 ### Workflow Definition
 
 - Guideline: none currently present under `work/guidelines/`
-- Patterns: `.opencode/agent/**/*`, `.opencode/commands/**/*`, `.opencode/skills/**/*`, `.opencode/scripts/**/*`, `.vibe/skills/**/*`
+- Patterns: `.opencode/agent/**/*`, `.opencode/commands/**/*`, `.opencode/skills/**/*`, `.opencode/scripts/**/*`
 - Keywords: `agent`, `command`, `skill`, `workflow`, `orchestrator`, `validator`
 
 ### Work Artifacts
@@ -58,7 +56,6 @@ If another repo document conflicts with this file, follow this file.
 
 - Markdown is the primary artifact format for agent definitions, commands, skills, and human-readable documentation.
 - Shell scripting is used for bootstrap and support automation in `.opencode/custom/init/init.sh` and `.opencode/scripts/`.
-- Markdown is used for Vibe skills in `.vibe/skills/`.
 - No language-specific build, test, or application runtime stack is verified outside the workflow assets above.
 
 ## Review Rules

@@ -215,9 +215,8 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
   - Core workflows use pure narrative markdown format without tool calls
   - Harness files are minimal wrappers that reference core workflows and add harness-specific frontmatter/constraints
   - Documentation explains structure and usage pattern
-  - Existing `.opencode/`, `.vibe/`, and `work/` files remain unchanged
   - Activation script `.aifact/init` created and tested
-- Not addressed: None
+- Not addressed: work/project-config.md had been modified (added .vibe/ directory documentation) but has been reverted to maintain constraint compliance
 - Status: done
 
 ## Implementation feedback (2026-06-26 00:26)
@@ -232,3 +231,11 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
   - Revert changes to work/project-config.md to comply with the story constraint
   - Or update the story to explicitly allow modification of work/project-config.md as it documents the new .vibe/ directory structure
   - Update Implementation update to accurately reflect what was changed
+
+## Implementation update (2026-06-26 12:00)
+
+- Addressed:
+  - Reverted changes to work/project-config.md to comply with story constraint
+  - Updated previous Implementation update to accurately reflect that work/project-config.md was modified but has been reverted
+- Not addressed: None
+- Status: done
