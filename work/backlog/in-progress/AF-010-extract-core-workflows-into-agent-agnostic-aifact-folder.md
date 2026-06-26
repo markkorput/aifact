@@ -25,7 +25,7 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 - Allows each harness (opencode, vibe) to provide its own thin adapter layer
 - Maintains backward compatibility by not modifying existing `.opencode/` or `.vibe/` files
 - Enables the entire `.aifact/` folder to be copied into any project for reuse
-- Supports activation via a pointer file at project root that references the desired harness within `.aifact/`
+- Supports activation via symlinks at project root pointing to harness folders within `.aifact/harnesses/`
 
 ## Technical Requirements
 
@@ -81,9 +81,9 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 
 4. Usage pattern:
    - Copy `.aifact/` into a project
-   - Run the init script to generate harness-specific pointer files at harness-specific locations
-   - Init script prompts before overwriting existing pointer files or `.aifact/` directory; use `-f`/`--force` to skip prompts
-   - Pointer files reference the desired harness implementations within `.aifact/harnesses/`
+   - Run the init script to symlink harness folders (`.vibe/` and `.opencode/`) to the project root
+   - Init script prompts before creating symlinks or overwriting existing directories; use `-f`/`--force` to skip prompts
+   - Harness folders contain complete implementations that reference core workflows
 
 ### Decisions with rationale
 
@@ -108,15 +108,15 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
    - Alternatives considered: Structured frontmatter (unnecessary complexity), YAML+Markdown hybrid (over-engineered)
 
 6. **Harness folder contents: Full implementations**
-   - Rationale: Enables `.aifact/` to be self-contained and portable; each harness folder contains everything needed for that harness to work; supports the pointer-based activation pattern
+   - Rationale: Enables `.aifact/` to be self-contained and portable; each harness folder contains everything needed for that harness to work; supports the symlink-based activation pattern
    - Alternatives considered: Adapter-only files (would require existing harness files to reference `.aifact/`, complicating the portability goal)
 
-7. **Activation mechanism: Harness-specific pointer files with user prompts**
-   - Rationale: Avoids overwriting existing harness directories at project root; init script generates harness-specific pointer files in harness-specific locations that reference implementations within `.aifact/harnesses/`; prompts user before overwriting existing files or directories; `-f`/`--force` flag skips prompts; enables clean discovery without symlink conflicts
-   - Alternatives considered: Symlinking harness folders to root (overwrites existing directories), Standardized pointer file (incompatible with harness-specific discovery conventions), Silent overwrite (risky, no user control)
+7. **Activation mechanism: Symlink harness folders to project root**
+   - Rationale: Creates direct access to harness implementations at standard locations; init script symlinks `.aifact/harnesses/vibe/` to `.vibe/` and `.aifact/harnesses/opencode/` to `.opencode/` at project root; prompts user before creating symlinks or overwriting existing directories; `-f`/`--force` flag skips prompts; maintains standard harness discovery paths
+   - Alternatives considered: Harness-specific pointer files (more complex, requires harness-specific discovery), Standardized pointer file (incompatible with harness-specific conventions), Silent overwrite (risky, no user control)
 
 8. **Top-level `.aifact/` files: README.md, init**
-   - Rationale: README.md provides human-oriented documentation; init script generates harness-specific pointer files for activation; AGENTS.md is harness-specific and lives only in harness folders
+   - Rationale: README.md provides human-oriented documentation; init script creates symlinks to harness folders at project root for activation; AGENTS.md is harness-specific and lives only in harness folders
    - Alternatives considered: No top-level files (lacks discoverability), All files in subdirectories (less convenient)
 
 ### Rejected alternatives
@@ -130,15 +130,15 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 
 - Do not modify any existing files in `.opencode/`, `.vibe/`, or `work/`
 - Core workflows must be completely harness-agnostic (no tool calls, no harness-specific metadata)
-- Harness implementations must be self-contained and workable via pointer file
+- Harness implementations must be self-contained and workable via symlink
 - The solution must support multiple harnesses simultaneously (opencode, vibe, potentially future harnesses)
 - Versioning and update mechanisms for `.aifact/` are out of scope for this story
 
 ### Validation requirements
 
 - Each core workflow in `.aifact/workflows/` must be human-readable and understandable without harness context
-- Harness implementations must refer to and follow the core workflows, using relative paths from `.aifact/harnesses/{harness}/` to `.aifact/workflows/`
-- The pointer activation pattern must work: copying `.aifact/`, running the init script, and verifying harness discovery should produce a working setup
+- Harness implementations must refer to and follow the core workflows, using relative paths from the project root
+- The symlink activation pattern must work: copying `.aifact/`, running the init script, and verifying that symlinks are created correctly at project root
 - Existing `.opencode/` and `.vibe/` workflows must continue to work unchanged
 
 ## Acceptance Criteria
@@ -155,7 +155,7 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 - [ ] Harness files reference core workflows and add harness-specific adaptations
 - [ ] Documentation in `.aifact/README.md` explains the structure and usage pattern
 - [ ] Existing `.opencode/`, `.vibe/`, and `work/` files remain unchanged and functional
-- [ ] Activation test: copying `.aifact/` to a test project, running the init script, and verifying harness discovery works correctly
+- [ ] Activation test: copying `.aifact/` to a test project, running the init script, and verifying that `.vibe/` and `.opencode/` symlinks are created at project root pointing to `.aifact/harnesses/{vibe,opencode}/`
 
 ---
 
@@ -168,7 +168,7 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 - `.aifact/workflows/*.md` - Core workflow definitions in pure narrative markdown (10 files specified)
 - `.aifact/harnesses/opencode/` - Full opencode harness implementation directory structure
 - `.aifact/harnesses/vibe/` - Full vibe harness implementation directory structure
-- `.aifact/init` - Activation script for generating harness-specific pointer files
+- `.aifact/init` - Activation script for creating symlinks to harness folders at project root
 - `.aifact/README.md` - Human-oriented documentation explaining structure and usage
 
 ### Possible Adjacent Touchpoints
@@ -191,7 +191,7 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 
 **Unit Tests**:
 - Verify each core workflow file in `.aifact/workflows/` is pure narrative markdown without tool calls
-- Verify harness files reference core workflows using relative paths
+- Verify harness files reference core workflows using relative paths from project root
 
 **Integration Tests**:
 - Verify `.aifact/harnesses/opencode/` contains complete, working implementations
@@ -199,7 +199,8 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
 
 **E2E / Manual Validation**:
 - Copy `.aifact/` to a test project and run init script
-- Verify harness discovery works correctly for both opencode and vibe
+- Verify that `.vibe/` and `.opencode/` symlinks are created at project root
+- Verify harness discovery works correctly for both opencode and vibe via symlinks
 - Verify existing `.opencode/` and `.vibe/` workflows remain unchanged and functional
 
 **Additional Checks (as applicable)**:
