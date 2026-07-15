@@ -1,1 +1,0 @@
-.opencode/custom/init/README.md

@@ -12,16 +12,14 @@ If another repo document conflicts with this file, follow this file.
 
 ## Repo Structure
 
-- Top-level layout is minimal: `.opencode/` holds the workflow implementation, `work/` holds durable project artifacts, and `README.md` describes the framework.
-- `.opencode/agent/` contains the primary agent definitions for the workflow.
-- `.opencode/commands/` contains command entry points such as `init`, `refresh-project-config`, `change`, `commit`, `create-guideline`, and `release`.
-- `.opencode/skills/` contains reusable skills such as `record-story`, `record-idea`, `record-guideline`, `record-adr`, and `agent-browser`.
-- `.opencode/custom/init/` contains the repo bootstrap assets, including `init.sh`, prompt reference files, and the project README source.
-- `.opencode/scripts/` contains support scripts used by workflow automation.
+- Top-level layout is minimal: `.aifact/` holds the workflow definitions, `.vibe/` holds the Vibe workflow implementation, `AGENTS.md` defines agent behavior, and `work/` holds durable project artifacts.
+- `.aifact/workflows/` contains the core workflow definitions such as `brainstorm`, `commit`, `create-guideline`, `record-story`, `refresh-project-config`, `story-analyzer`, `story-implementer`, `story-reviewer`, `story-start`, and `story-validator`.
+- `.vibe/skills/` contains reusable Vibe skills such as `brainstorm`, `commit`, `create-guideline`, `record-story`, `refresh-project-config`, `story-analyzer`, `story-implementer`, `story-reviewer`, `story-start`, and `story-validator`.
 - `work/project-config.md` is the main repo-local operating context file.
 - `work/backlog/backlog/`, `work/backlog/planned/`, `work/backlog/in-progress/`, and `work/backlog/done/` hold story state.
 - `work/ideas/ideas/` and `work/ideas/Inbox.md` hold early-stage ideas.
 - `work/guidelines/`, `work/adr/`, and `work/releases/` exist but currently contain only scaffold files.
+- `work/README.md` is a symlink to `../.opencode/custom/init/README.md` (currently broken as `.opencode/` does not exist).
 
 ## Output Rules
 
@@ -37,8 +35,8 @@ If another repo document conflicts with this file, follow this file.
 ### Workflow Definition
 
 - Guideline: none currently present under `work/guidelines/`
-- Patterns: `.opencode/agent/**/*`, `.opencode/commands/**/*`, `.opencode/skills/**/*`, `.opencode/scripts/**/*`
-- Keywords: `agent`, `command`, `skill`, `workflow`, `orchestrator`, `validator`
+- Patterns: `.aifact/workflows/**/*`, `.vibe/skills/**/*`
+- Keywords: `workflow`, `skill`, `vibe`, `agent`
 
 ### Work Artifacts
 
@@ -49,14 +47,14 @@ If another repo document conflicts with this file, follow this file.
 ### Bootstrap and Prompt Assets
 
 - Guideline: none currently present under `work/guidelines/`
-- Patterns: `.opencode/custom/init/**/*`, `README.md`
-- Keywords: `init`, `bootstrap`, `readme`, `prompt`, `guideline`
+- Patterns: `AGENTS.md`
+- Keywords: `agent`, `behavior`, `guideline`
 
 ## Technology Rules
 
-- Markdown is the primary artifact format for agent definitions, commands, skills, and human-readable documentation.
-- Shell scripting is used for bootstrap and support automation in `.opencode/custom/init/init.sh` and `.opencode/scripts/`.
-- No language-specific build, test, or application runtime stack is verified outside the workflow assets above.
+- Markdown is the primary artifact format for workflow definitions, skills, and human-readable documentation.
+- No shell scripts, build tools, or application runtime stack are currently present in this repository.
+- The workflow is implemented through Vibe skills (`.vibe/skills/`) and workflow definitions (`.aifact/workflows/`).
 
 ## Review Rules
 
@@ -73,13 +71,13 @@ If another repo document conflicts with this file, follow this file.
 
 ### Analysis
 
-- Start from the affected area: `.opencode/` for workflow behavior.
+- Start from the affected area: `.aifact/` and `.vibe/` for workflow behavior.
 - When `work/guidelines/` gains task-relevant files, load only the files that match the affected area.
 
 ### Implementation
 
 - Use the affected file paths to choose the matching domain above.
-- Treat `work/` artifacts as durable handoff material and `.opencode/` files as workflow implementation assets.
+- Treat `work/` artifacts as durable handoff material and `.aifact/`/`.vibe/` files as workflow implementation assets.
 - Do not assume application runtime conventions that are not present in this repository.
 
 ### Validation
