@@ -7,7 +7,7 @@ model: openai/gpt-5.5
 
 # Create Guideline for AiFact
 
-> **Core Workflow**: See `../../../workflows/create-guideline.md`
+> **Core Workflow**: See `.aifact/workflows/create-guideline.md`
 
 Follow the core workflow definition and adapt for OpenCode harness.
 

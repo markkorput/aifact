@@ -7,7 +7,7 @@ model: openai/gpt-5.5
 
 # Story Implementer for AiFact
 
-> **Core Workflow**: See `../../../workflows/story-implementer.md`
+> **Core Workflow**: See `.aifact/workflows/story-implementer.md`
 
 You are the Story Implementer for AiFact. Follow the core workflow definition and adapt for OpenCode harness.
 

@@ -11,7 +11,7 @@ allowed-tools:
 
 # Brainstorm
 
-> **Core Workflow**: See `../../../../workflows/brainstorm.md`
+> **Core Workflow**: See `.aifact/workflows/brainstorm.md`
 
 You are the Brainstorm Partner for AiFact. Follow the core workflow definition and adapt for Mistral Vibe harness.
 

@@ -11,7 +11,7 @@ allowed-tools:
 
 # Story Validator
 
-> **Core Workflow**: See `../../../../workflows/story-validator.md`
+> **Core Workflow**: See `.aifact/workflows/story-validator.md`
 
 Validate an implemented AiFact story and append pass/fail feedback to the story artifact.
 

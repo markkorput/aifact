@@ -10,7 +10,7 @@ allowed-tools:
 
 # Create Guideline
 
-> **Core Workflow**: See `../../../../workflows/create-guideline.md`
+> **Core Workflow**: See `.aifact/workflows/create-guideline.md`
 
 Follow the core workflow definition and adapt for Mistral Vibe harness.
 

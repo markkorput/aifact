@@ -2,15 +2,12 @@
 set -euo pipefail
 
 # AiFact Framework Activation Script
-# This script generates harness-specific pointer files that reference
-# the implementations within .aifact/harnesses/
+# This script creates symlinks to harness folders at the project root
 
 SCRIPT_PATH="${BASH_SOURCE[0]}"
 SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
-ROOT_DIR="$(pwd)"
 
 FORCE=false
-HARNESS=""
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -19,33 +16,17 @@ while [[ $# -gt 0 ]]; do
             FORCE=true
             shift
             ;;
-        opencode|vibe)
-            if [[ -n "$HARNESS" ]]; then
-                echo "Error: Only one harness can be specified"
-                exit 1
-            fi
-            HARNESS="$1"
-            shift
-            ;;
         *)
-            echo "Usage: $0 [opencode|vibe] [-f|--force]"
+            echo "Usage: $0 [-f|--force]"
             echo ""
-            echo "Activate AiFact framework by creating harness-specific pointer files."
+            echo "Activate AiFact framework by creating symlinks to harness folders at project root."
             echo ""
             echo "Arguments:"
-            echo "  opencode    Create pointer files for OpenCode harness"
-            echo "  vibe        Create pointer files for Mistral Vibe harness"
             echo "  -f, --force Skip confirmation prompts"
             exit 1
             ;;
     esac
 done
-
-# Validate harness is specified
-if [[ -z "$HARNESS" ]]; then
-    echo "Error: Harness not specified. Use 'opencode' or 'vibe'."
-    exit 1
-fi
 
 # Validate .aifact directory exists
 if [[ ! -d "$SCRIPT_DIR" || ! -f "$SCRIPT_DIR/README.md" ]]; then
@@ -53,118 +34,75 @@ if [[ ! -d "$SCRIPT_DIR" || ! -f "$SCRIPT_DIR/README.md" ]]; then
     exit 1
 fi
 
-# Define harness-specific configurations
-declare -A HARNESS_CONFIG
-HARNESS_CONFIG[opencode,target_dir]=".opencode"
-HARNESS_CONFIG[opencode,source_dir]="$SCRIPT_DIR/harnesses/opencode"
-HARNESS_CONFIG[vibe,target_dir]=".vibe"
-HARNESS_CONFIG[vibe,source_dir]="$SCRIPT_DIR/harnesses/vibe"
+# Define source and target directories
+OPENCODE_SOURCE="$SCRIPT_DIR/harnesses/opencode"
+OPENCODE_TARGET=".opencode"
 
-TARGET_DIR="${HARNESS_CONFIG[$HARNESS,target_dir]}"
-SOURCE_DIR="${HARNESS_CONFIG[$HARNESS,source_dir]}"
+VIBE_SOURCE="$SCRIPT_DIR/harnesses/vibe"
+VIBE_TARGET=".vibe"
 
-# Validate source directory exists
-if [[ ! -d "$SOURCE_DIR" ]]; then
-    echo "Error: Source directory not found: $SOURCE_DIR"
+# Validate source directories exist
+if [[ ! -d "$OPENCODE_SOURCE" ]]; then
+    echo "Error: OpenCode source directory not found: $OPENCODE_SOURCE"
     exit 1
 fi
 
-# Check if target directory exists and prompt if needed
-if [[ -d "$TARGET_DIR" || -f "$TARGET_DIR" ]]; then
-    if [[ "$FORCE" != true ]]; then
-        read -p "Target directory '$TARGET_DIR' already exists. Overwrite? [y/N] " -n 1 -r
-        echo
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            echo "Aborted."
-            exit 0
-        fi
-    fi
+if [[ ! -d "$VIBE_SOURCE" ]]; then
+    echo "Error: Vibe source directory not found: $VIBE_SOURCE"
+    exit 1
 fi
 
-# Create target directory if it doesn't exist
-mkdir -p "$TARGET_DIR"
-
-# Define the pointer files to create
-# Format: target_path,source_path
-POINTER_FILES=(
-    # OpenCode specific
-    "$TARGET_DIR/agent/brainstorm.md:$SOURCE_DIR/agent/brainstorm.md"
-    "$TARGET_DIR/agent/story-analyzer.md:$SOURCE_DIR/agent/story-analyzer.md"
-    "$TARGET_DIR/agent/story-implementer.md:$SOURCE_DIR/agent/story-implementer.md"
-    "$TARGET_DIR/agent/story-reviewer.md:$SOURCE_DIR/agent/story-reviewer.md"
-    "$TARGET_DIR/agent/story-start.md:$SOURCE_DIR/agent/story-start.md"
-    "$TARGET_DIR/agent/story-validator.md:$SOURCE_DIR/agent/story-validator.md"
-    "$TARGET_DIR/commands/commit.md:$SOURCE_DIR/commands/commit.md"
-    "$TARGET_DIR/commands/create-guideline.md:$SOURCE_DIR/commands/create-guideline.md"
-    "$TARGET_DIR/commands/refresh-project-config.md:$SOURCE_DIR/commands/refresh-project-config.md"
-    "$TARGET_DIR/commands/init.md:$SOURCE_DIR/commands/init.md"
-    "$TARGET_DIR/skills/record-story.md:$SOURCE_DIR/skills/record-story.md"
-)
-
-if [[ "$HARNESS" == "vibe" ]]; then
-    # For Vibe, create skills subdirectories with SKILL.md files
-    POINTER_FILES=(
-        "$TARGET_DIR/skills/brainstorm/SKILL.md:$SOURCE_DIR/skills/brainstorm/SKILL.md"
-        "$TARGET_DIR/skills/commit/SKILL.md:$SOURCE_DIR/skills/commit/SKILL.md"
-        "$TARGET_DIR/skills/create-guideline/SKILL.md:$SOURCE_DIR/skills/create-guideline/SKILL.md"
-        "$TARGET_DIR/skills/refresh-project-config/SKILL.md:$SOURCE_DIR/skills/refresh-project-config/SKILL.md"
-        "$TARGET_DIR/skills/record-story/SKILL.md:$SOURCE_DIR/skills/record-story/SKILL.md"
-        "$TARGET_DIR/skills/story-analyzer/SKILL.md:$SOURCE_DIR/skills/story-analyzer/SKILL.md"
-        "$TARGET_DIR/skills/story-implementer/SKILL.md:$SOURCE_DIR/skills/story-implementer/SKILL.md"
-        "$TARGET_DIR/skills/story-reviewer/SKILL.md:$SOURCE_DIR/skills/story-reviewer/SKILL.md"
-        "$TARGET_DIR/skills/story-start/SKILL.md:$SOURCE_DIR/skills/story-start/SKILL.md"
-        "$TARGET_DIR/skills/story-validator/SKILL.md:$SOURCE_DIR/skills/story-validator/SKILL.md"
-    )
-fi
-
-# Function to create a pointer file
-create_pointer() {
-    local target_path="$1"
-    local source_path="$2"
+# Function to create symlink for a harness folder
+create_harness_symlink() {
+    local source_dir="$1"
+    local target_dir="$2"
+    local harness_name="$3"
     
-    # Create parent directory if it doesn't exist
-    local target_dir="$(dirname "$target_path")"
-    mkdir -p "$target_dir"
-    
-    # Check if target already exists
-    if [[ -f "$target_path" ]]; then
+    # Check if target directory exists and prompt if needed
+    if [[ -d "$target_dir" || -f "$target_dir" || -L "$target_dir" ]]; then
         if [[ "$FORCE" != true ]]; then
-            read -p "Pointer file '$target_path' already exists. Overwrite? [y/N] " -n 1 -r
+            read -p "Target '$target_dir' already exists. Overwrite? [y/N] " -n 1 -r
             echo
             if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-                echo "Skipped: $target_path"
+                echo "Skipped: $target_dir"
                 return 1
             fi
         fi
+        # Remove existing target if forcing
+        rm -rf "$target_dir"
     fi
     
-    # Create symbolic link to the source file
-    # Note: Using absolute path for reliability across different working directories
-    local absolute_source="$(cd "$(dirname "$source_path")" && pwd)/$(basename "$source_path")"
-    ln -sf "$absolute_source" "$target_path"
-    
-    echo "Created pointer: $target_path -> $source_path"
+    # Create symlink using relative path
+    ln -sf "$source_dir" "$target_dir"
+    echo "Created symlink: $target_dir -> $source_dir"
+    return 0
 }
 
-# Create all pointer files
-echo "Activating AiFact framework for $HARNESS harness..."
+echo "Activating AiFact framework..."
 echo ""
 
 created_count=0
 skipped_count=0
 
-for pointer in "${POINTER_FILES[@]}"; do
-    IFS=':' read -r target source <<< "$pointer"
-    if create_pointer "$target" "$source"; then
-        ((created_count++))
-    else
-        ((skipped_count++))
-    fi
-done
+# Create symlink for OpenCode harness
+if create_harness_symlink "$OPENCODE_SOURCE" "$OPENCODE_TARGET" "opencode"; then
+    created_count=$((created_count + 1))
+else
+    skipped_count=$((skipped_count + 1))
+fi
+
+# Create symlink for Vibe harness
+if create_harness_symlink "$VIBE_SOURCE" "$VIBE_TARGET" "vibe"; then
+    created_count=$((created_count + 1))
+else
+    skipped_count=$((skipped_count + 1))
+fi
 
 echo ""
 echo "Activation complete!"
-echo "Created $created_count pointer files, skipped $skipped_count"
+echo "Created $created_count harness symlinks, skipped $skipped_count"
 echo ""
-echo "Pointer files reference implementations in: $SOURCE_DIR"
-echo "You can now use the $HARNESS harness with AiFact workflows."
+echo "Harness folders symlinked at project root:"
+echo "  .opencode -> $OPENCODE_SOURCE"
+echo "  .vibe -> $VIBE_SOURCE"
+echo "You can now use both harnesses with AiFact workflows."

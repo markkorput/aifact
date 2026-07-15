@@ -9,7 +9,7 @@ allowed-tools:
 
 # Story Reviewer
 
-> **Core Workflow**: See `../../../../workflows/story-reviewer.md`
+> **Core Workflow**: See `.aifact/workflows/story-reviewer.md`
 
 Review of a drafted story before code-impact analysis. Preserves artifact-first workflow.
 

@@ -7,7 +7,7 @@ model: openai/gpt-5.5
 
 # Story Analyzer for AiFact
 
-> **Core Workflow**: See `../../../workflows/story-analyzer.md`
+> **Core Workflow**: See `.aifact/workflows/story-analyzer.md`
 
 You are the Story Analyzer for AiFact. Follow the core workflow definition and adapt for OpenCode harness.
 

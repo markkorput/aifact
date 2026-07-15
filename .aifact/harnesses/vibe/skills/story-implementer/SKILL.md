@@ -13,7 +13,7 @@ allowed-tools:
 
 # Story Implementer
 
-> **Core Workflow**: See `../../../../workflows/story-implementer.md`
+> **Core Workflow**: See `.aifact/workflows/story-implementer.md`
 
 Implement an in-progress AiFact story after Analysis exists, preserving artifact-first handoffs.
 

@@ -9,7 +9,7 @@ allowed-tools:
 
 # Commit
 
-> **Core Workflow**: See `../../../../workflows/commit.md`
+> **Core Workflow**: See `.aifact/workflows/commit.md`
 
 **Arguments:** $ARGUMENTS (optional commit message hint)
 

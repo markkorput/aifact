@@ -7,7 +7,7 @@ model: openai/gpt-5.5
 
 # Story Reviewer for AiFact
 
-> **Core Workflow**: See `../../../workflows/story-reviewer.md`
+> **Core Workflow**: See `.aifact/workflows/story-reviewer.md`
 
 You are the Story Reviewer for AiFact. Follow the core workflow definition and adapt for OpenCode harness.
 

@@ -7,7 +7,7 @@ model: openai/gpt-5.5
 
 # Commit for AiFact
 
-> **Core Workflow**: See `../../../workflows/commit.md`
+> **Core Workflow**: See `.aifact/workflows/commit.md`
 
 **Arguments:** `$ARGUMENTS` (optional commit message hint)
 

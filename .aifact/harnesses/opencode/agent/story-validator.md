@@ -7,7 +7,7 @@ model: openai/gpt-5.5
 
 # Story Validator for AiFact
 
-> **Core Workflow**: See `../../../workflows/story-validator.md`
+> **Core Workflow**: See `.aifact/workflows/story-validator.md`
 
 You are the Story Validator for AiFact. Follow the core workflow definition and adapt for OpenCode harness.
 

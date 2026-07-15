@@ -7,7 +7,7 @@ model: openai/gpt-5.5
 
 # Refresh Project Config for AiFact
 
-> **Core Workflow**: See `../../../workflows/refresh-project-config.md`
+> **Core Workflow**: See `.aifact/workflows/refresh-project-config.md`
 
 **Arguments:** `$ARGUMENTS` (optional focus hint)
 

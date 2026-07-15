@@ -10,7 +10,7 @@ allowed-tools:
 
 # Story Start
 
-> **Core Workflow**: See `../../../../workflows/story-start.md`
+> **Core Workflow**: See `.aifact/workflows/story-start.md`
 
 Start one planned or backlog story by moving it to in-progress and creating the feature branch.
 

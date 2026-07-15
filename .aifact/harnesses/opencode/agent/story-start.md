@@ -7,7 +7,7 @@ model: openai/gpt-5.5
 
 # Story Start for AiFact
 
-> **Core Workflow**: See `../../../workflows/story-start.md`
+> **Core Workflow**: See `.aifact/workflows/story-start.md`
 
 You are the Story Starter for AiFact. Follow the core workflow definition and adapt for OpenCode harness.
 

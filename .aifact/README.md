@@ -65,11 +65,11 @@ This directory contains the portable, harness-agnostic AiFact workflow framework
 ## Usage Pattern
 
 1. Copy the entire `.aifact/` folder into your project root
-2. Run the init script to generate harness-specific pointer files:
+2. Run the init script to create symlinks to harness folders:
    ```bash
-   ./.aifact/init [opencode|vibe] [-f|--force]
+   ./.aifact/init [-f|--force]
    ```
-3. The init script will create pointer files in harness-specific locations that reference the implementations within `.aifact/harnesses/`
+3. The init script will create symlinks at project root pointing to the harness implementations within `.aifact/harnesses/`
 
 ## Key Principles
 
@@ -80,9 +80,9 @@ This directory contains the portable, harness-agnostic AiFact workflow framework
 
 ## Activation
 
-The init script supports two harnesses:
-- `opencode`: Creates pointer files in `.opencode/` locations
-- `vibe`: Creates pointer files in `.vibe/` locations
+The init script creates symlinks for both harnesses at project root:
+- `.opencode` -> `.aifact/harnesses/opencode/`
+- `.vibe` -> `.aifact/harnesses/vibe/`
 
 Use `-f` or `--force` to skip confirmation prompts.
 

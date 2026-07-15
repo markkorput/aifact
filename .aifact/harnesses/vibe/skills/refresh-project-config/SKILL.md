@@ -10,7 +10,7 @@ allowed-tools:
 
 # Refresh Project Config
 
-> **Core Workflow**: See `../../../../workflows/refresh-project-config.md`
+> **Core Workflow**: See `.aifact/workflows/refresh-project-config.md`
 
 **Arguments:** $ARGUMENTS (optional focus hint)
 

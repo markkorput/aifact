@@ -240,3 +240,24 @@ Create a portable, harness-agnostic core workflow framework in `.aifact/` that:
   - Updated previous Implementation update to accurately reflect that work/project-config.md was modified but has been reverted
 - Not addressed: None
 - Status: done
+
+## Validation update (2026-07-15 23:25)
+
+* Validation passed with no regressions found.
+* Gate result: PASS.
+* Baseline checks passed or had no unrelated failures observed.
+* Touched-scope coverage: no material regression.
+* Security review: completed - init script uses safe practices with prompts before overwrite, set -euo pipefail for error handling.
+* Retained exploratory artifacts: none.
+* Validated checklist items:
+  - .aifact/ directory exists at repository root with README.md
+  - .aifact/workflows/ contains 10 core workflow definitions (Foundation group and all others)
+  - .aifact/harnesses/opencode/ contains full opencode implementations that reference core workflows
+  - .aifact/harnesses/vibe/ contains full vibe implementations that reference core workflows
+  - Core workflow files use pure narrative markdown format without tool calls
+  - Harness files reference core workflows using .aifact/workflows/ paths and add harness-specific adaptations
+  - Documentation in .aifact/README.md explains structure, usage pattern, and activation mechanism
+  - Existing .opencode/, .vibe/, and work/ files remain unchanged and functional
+  - Activation test: copying .aifact/ to test project, running init script, verifying .vibe/ and .opencode/ symlinks created at project root
+  - Fixed init script bug where ((created_count++)) would fail with set -e when variable is 0
+* Providers covered: opencode, vibe.

@@ -11,7 +11,7 @@ allowed-tools:
 
 # Story Analyzer
 
-> **Core Workflow**: See `../../../../workflows/story-analyzer.md`
+> **Core Workflow**: See `.aifact/workflows/story-analyzer.md`
 
 Analyze an in-progress AiFact story and write a bounded implementation Analysis section.
 
