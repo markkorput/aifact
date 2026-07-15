@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# AiFact Framework Activation Script
+# This script creates symlinks to harness folders at the project root
+
+SCRIPT_PATH="${BASH_SOURCE[0]}"
+SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
+
+FORCE=false
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -f|--force)
+            FORCE=true
+            shift
+            ;;
+        *)
+            echo "Usage: $0 [-f|--force]"
+            echo ""
+            echo "Activate AiFact framework by creating symlinks to harness folders at project root."
+            echo ""
+            echo "Arguments:"
+            echo "  -f, --force Skip confirmation prompts"
+            exit 1
+            ;;
+    esac
+done
+
+# Validate .aifact directory exists
+if [[ ! -d "$SCRIPT_DIR" || ! -f "$SCRIPT_DIR/README.md" ]]; then
+    echo "Error: .aifact directory not found or invalid at $SCRIPT_DIR"
+    exit 1
+fi
+
+# Define source and target directories
+OPENCODE_SOURCE="$SCRIPT_DIR/harnesses/opencode"
+OPENCODE_TARGET=".opencode"
+
+VIBE_SOURCE="$SCRIPT_DIR/harnesses/vibe"
+VIBE_TARGET=".vibe"
+
+# Validate source directories exist
+if [[ ! -d "$OPENCODE_SOURCE" ]]; then
+    echo "Error: OpenCode source directory not found: $OPENCODE_SOURCE"
+    exit 1
+fi
+
+if [[ ! -d "$VIBE_SOURCE" ]]; then
+    echo "Error: Vibe source directory not found: $VIBE_SOURCE"
+    exit 1
+fi
+
+# Function to create symlink for a harness folder
+create_harness_symlink() {
+    local source_dir="$1"
+    local target_dir="$2"
+    local harness_name="$3"
+    
+    # Check if target directory exists and prompt if needed
+    if [[ -d "$target_dir" || -f "$target_dir" || -L "$target_dir" ]]; then
+        if [[ "$FORCE" != true ]]; then
+            read -p "Target '$target_dir' already exists. Overwrite? [y/N] " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                echo "Skipped: $target_dir"
+                return 1
+            fi
+        fi
+        # Remove existing target if forcing
+        rm -rf "$target_dir"
+    fi
+    
+    # Create symlink using relative path
+    ln -sf "$source_dir" "$target_dir"
+    echo "Created symlink: $target_dir -> $source_dir"
+    return 0
+}
+
+echo "Activating AiFact framework..."
+echo ""
+
+created_count=0
+skipped_count=0
+
+# Create symlink for OpenCode harness
+if create_harness_symlink "$OPENCODE_SOURCE" "$OPENCODE_TARGET" "opencode"; then
+    created_count=$((created_count + 1))
+else
+    skipped_count=$((skipped_count + 1))
+fi
+
+# Create symlink for Vibe harness
+if create_harness_symlink "$VIBE_SOURCE" "$VIBE_TARGET" "vibe"; then
+    created_count=$((created_count + 1))
+else
+    skipped_count=$((skipped_count + 1))
+fi
+
+echo ""
+echo "Activation complete!"
+echo "Created $created_count harness symlinks, skipped $skipped_count"
+echo ""
+echo "Harness folders symlinked at project root:"
+echo "  .opencode -> $OPENCODE_SOURCE"
+echo "  .vibe -> $VIBE_SOURCE"
+echo "You can now use both harnesses with AiFact workflows."
