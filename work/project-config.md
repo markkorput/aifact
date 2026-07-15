@@ -13,8 +13,8 @@ If another repo document conflicts with this file, follow this file.
 ## Repo Structure
 
 - Top-level layout is minimal: `.aifact/` holds the workflow definitions, `.vibe/` holds the Vibe workflow implementation, `AGENTS.md` defines agent behavior, and `work/` holds durable project artifacts.
-- `.aifact/workflows/` contains the core workflow definitions such as `brainstorm`, `commit`, `create-guideline`, `record-story`, `refresh-project-config`, `story-analyzer`, `story-implementer`, `story-reviewer`, `story-start`, and `story-validator`.
-- `.vibe/skills/` contains reusable Vibe skills such as `brainstorm`, `commit`, `create-guideline`, `record-story`, `refresh-project-config`, `story-analyzer`, `story-implementer`, `story-reviewer`, `story-start`, and `story-validator`.
+- `.aifact/workflows/` contains the core workflow definitions such as `brainstorm`, `commit`, `create-guideline`, `create-story`, `refresh-project-config`, `story-analyzer`, `story-implementer`, `story-reviewer`, `story-start`, and `story-validator`.
+- `.vibe/skills/` contains reusable Vibe skills such as `brainstorm`, `commit`, `create-guideline`, `create-story`, `refresh-project-config`, `story-analyzer`, `story-implementer`, `story-reviewer`, `story-start`, and `story-validator`.
 - `work/project-config.md` is the main repo-local operating context file.
 - `work/backlog/backlog/`, `work/backlog/planned/`, `work/backlog/in-progress/`, and `work/backlog/done/` hold story state.
 - `work/ideas/ideas/` and `work/ideas/Inbox.md` hold early-stage ideas.
