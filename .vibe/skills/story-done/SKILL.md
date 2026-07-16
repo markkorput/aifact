@@ -39,7 +39,7 @@ Follow steps from core workflow using Vibe tool names (`read_file`, `grep`, `glo
 4. **Git Operations**: Use `bash` tool for git commands:
    - `git checkout <parent-branch>`
    - `git pull`
-   - `git merge <feature-branch>`
+   - `git merge --squash <feature-branch>`
    - `git branch -d <feature-branch>`
    - `git mv <source> <destination>` for story file move
    - `git commit -m "chore: move <story-id> to done"`

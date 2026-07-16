@@ -13,7 +13,7 @@ Finalize a completed story by moving it to done state, merging its feature branc
 5. Derive the feature branch name from Type and slug: `<type>/<slug>`
 6. Discover the parent branch (the branch the feature branch was created from)
 7. Checkout the parent branch and pull latest changes
-8. Merge the feature branch into the parent branch (regular merge, not squash)
+8. Merge the feature branch into the parent branch using squash merge
 9. Delete the feature branch after successful merge
 10. Move the story file from work/stories/in-progress/ to work/stories/done/
 11. Commit the story file move with conventional commit message
@@ -26,7 +26,7 @@ Finalize a completed story by moving it to done state, merging its feature branc
 - Extract story Type and slug from story file content or filename
 - Derive branch name from Type and slug: `<type>/<slug>`
 - Discover parent branch via git operations to find branch point, or fall back to `main` if indeterminate
-- Merge feature branch into parent branch using regular merge
+- Merge feature branch into parent branch using squash merge
 - Delete feature branch after successful merge
 - Do not auto-push to remote
 - File system writes limited to work/stories/ and git operations
