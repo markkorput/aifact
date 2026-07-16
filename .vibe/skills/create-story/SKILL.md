@@ -1,6 +1,6 @@
 ---
 name: create-story
-description: Create a new AiFact user story under work/backlog/backlog using the standard story template with XX[X]-DDDD ID format and date-stamped filename.
+description: Create a new AiFact user story under work/stories/backlog using the standard story template with XX[X]-DDDD ID format and date-stamped filename.
 user-invocable: true
 allowed-tools:
   - read_file
@@ -13,13 +13,13 @@ allowed-tools:
 
 > **Core Workflow**: See `.aifact/workflows/create-story.md`
 
-Create a new AiFact user story under work/backlog/backlog using the standard story template with `<PREFIX>-<NUMBER>` ID format and `<ID>-<YYYY-MM-DD>-<slug>.md` filename pattern.
+Create a new AiFact user story under work/stories/backlog using the standard story template with `<PREFIX>-<NUMBER>` ID format and `<ID>-<YYYY-MM-DD>-<slug>.md` filename pattern.
 
 ## Hard Constraints (Vibe-specific)
 
 - Do not modify existing stories
 - Do not auto-start stories
-- File system writes limited to work/backlog/
+- File system writes limited to work/stories/
 - Story ID must be unique and follow `<PREFIX>-<NUMBER>` format
 - Filename must follow `<ID>-<YYYY-MM-DD>-<slug>.md` pattern
 - Prefix must be 2-3 uppercase letters
@@ -32,7 +32,7 @@ Follow steps from core workflow using Vibe tool names (`read_file`, `write_file`
 ### Implementation Details
 
 1. **Prefix Discovery**:
-   - Scan all `.md` files in `work/backlog/**/*`
+   - Scan all `.md` files in `work/stories/**/*`
    - Extract ID from each filename (first component before first hyphen)
    - Extract prefix from ID (letters before dash)
    - If multiple prefixes found, use prefix from story with latest date in filename
@@ -43,7 +43,7 @@ Follow steps from core workflow using Vibe tool names (`read_file`, `write_file`
    - Normalize to uppercase
 
 3. **Number Assignment**:
-   - Scan all `.md` files in `work/backlog/**/*`
+   - Scan all `.md` files in `work/stories/**/*`
    - For each, extract ID from filename and parse number component
    - Find maximum number value
    - Next number = max + 1, formatted with leading zeros to minimum 4 digits (extends beyond 4 as needed)

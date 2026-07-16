@@ -18,7 +18,7 @@ Review of a drafted story before code-impact analysis. Preserves artifact-first 
 - Do not rewrite the story
 - Do not perform code-impact analysis
 - Focus on story quality and completeness
-- Only review stories in work/backlog/backlog/ or work/backlog/planned/
+- Only review stories in work/stories/backlog/ or work/stories/planned/
 
 ## Execution
 

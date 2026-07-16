@@ -63,7 +63,7 @@ Rename and refactor the story creation workflow/skill from `record-story` to `cr
 - `.vibe/skills/create-guideline/` — separate skill, no dependency on record-story
 
 ### Boundaries
-- **Do not modify**: Existing stories in `work/backlog/**/` (per record-story constraint)
+- **Do not modify**: Existing stories in `work/stories/**/` (per record-story constraint)
 - **Do not change**: Other workflow/skill files except to update `record-story` references
 - **Preserve**: Core story creation behavior (capture request, generate ID, structure story)
 - **Isolate**: ID format logic to create-story workflow/skill only
@@ -95,6 +95,6 @@ Rename and refactor the story creation workflow/skill from `record-story` to `cr
 
 ### Verification
 - All 8 touchpoints from Analysis have been addressed
-- No modifications to existing stories in `work/backlog/**/`
+- No modifications to existing stories in `work/stories/**/`
 - Other workflows/skills unchanged except reference updates
 - Core story creation behavior preserved

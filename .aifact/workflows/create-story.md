@@ -24,7 +24,7 @@ Create a new user story artifact in the backlog for trackable work items. This w
 
 ## Output Contract
 
-- A new markdown file in the appropriate `work/backlog/<state>/` directory
+- A new markdown file in the appropriate `work/stories/<state>/` directory
 - Story file contains: title, Type, Context, Functional Requirements, Technical Requirements, Acceptance Criteria
 - Return the absolute path to the created story file
 - Return the story ID

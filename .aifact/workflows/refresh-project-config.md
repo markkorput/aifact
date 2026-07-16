@@ -11,7 +11,7 @@ Update the `work/project-config.md` file to reflect the current repository state
    - Top-level directory structure
    - Domain folders (work/, .opencode/, .vibe/, etc.)
    - Guideline files in work/guidelines/
-   - Backlog state in work/backlog/
+   - Backlog state in work/stories/
    - ADR files in work/adr/
    - Documentation structure
 3. Identify discrepancies between config and actual state

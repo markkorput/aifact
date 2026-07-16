@@ -13,7 +13,7 @@ This repository defines an artifact-based AI workflow.
 - `.vibe/skills/` - Vibe skills
 - `.aifact/` - workflow definitions and harnesses
 - `work/project-config.md` - repo operating context
-- `work/backlog/` - story state
+- `work/stories/` - story state
 - `work/ideas/` - idea capture
 
 ## Agent behavior

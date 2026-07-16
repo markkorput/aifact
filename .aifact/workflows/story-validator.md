@@ -27,7 +27,7 @@ Validate an implemented AiFact story and append pass/fail feedback to the story 
 
 ## Constraints
 
-- Only validate stories in work/backlog/in-progress/ or work/backlog/done/
+- Only validate stories in work/stories/in-progress/ or work/stories/done/
 - Do not modify implementation, only validate
 - Do not run destructive operations
 - Validation must be repo-grounded

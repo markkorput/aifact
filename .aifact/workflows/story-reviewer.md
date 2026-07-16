@@ -20,7 +20,7 @@ Review a drafted story before code-impact analysis to ensure it is ready for imp
 - Do not rewrite the story, only suggest improvements
 - Do not perform code-impact analysis (that's story-analyzer's role)
 - Focus on story quality and completeness, not technical implementation
-- Only review stories in work/backlog/backlog/ or work/backlog/planned/
+- Only review stories in work/stories/backlog/ or work/stories/planned/
 - Do not modify the story file
 - Be explicit about what is missing or unclear
 

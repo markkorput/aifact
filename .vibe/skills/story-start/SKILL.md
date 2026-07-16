@@ -16,8 +16,8 @@ Start one planned or backlog story by moving it to in-progress and creating the 
 
 ## Hard Constraints (Vibe-specific)
 
-- Accept only stories from work/backlog/backlog/ or work/backlog/planned/
-- Never move stories from work/backlog/in-progress/ or work/backlog/done/
+- Accept only stories from work/stories/backlog/ or work/stories/planned/
+- Never move stories from work/stories/in-progress/ or work/stories/done/
 - Never discard existing user changes
 - Never commit unrelated changes
 

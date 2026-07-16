@@ -9,7 +9,7 @@ Kick off story implementation by moving a planned or backlog story to in-progres
 1. Read the invoked story file
 2. Validate the story path is from backlog or planned directory
 3. Extract the story title and Type from the file
-4. Move the story file to work/backlog/in-progress/
+4. Move the story file to work/stories/in-progress/
 5. Derive a branch name from the title and type: <type>/<slugified-title>
 6. Check out the branch (create if doesn't exist)
 7. Stage only the moved story file
@@ -18,8 +18,8 @@ Kick off story implementation by moving a planned or backlog story to in-progres
 
 ## Constraints
 
-- Accept only stories from work/backlog/backlog/ or work/backlog/planned/
-- Never move stories from work/backlog/in-progress/ or work/backlog/done/
+- Accept only stories from work/stories/backlog/ or work/stories/planned/
+- Never move stories from work/stories/in-progress/ or work/stories/done/
 - Never discard existing user changes
 - Never commit unrelated changes
 - Do not modify source code files
@@ -28,7 +28,7 @@ Kick off story implementation by moving a planned or backlog story to in-progres
 
 ## Output Contract
 
-- Story file moved to work/backlog/in-progress/
+- Story file moved to work/stories/in-progress/
 - New branch created or checked out matching <type>/<slug> pattern
 - Git commit with message: "chore: move <story-title> to in-progress"
 - Return story path, branch name, commit hash, and status
