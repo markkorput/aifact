@@ -42,3 +42,38 @@ The current AiFact story lifecycle has workflows for creation, starting, reviewi
 - [ ] Workflow does not auto-push to remote
 - [ ] Workflow only operates on stories in work/stories/in-progress/ directory
 - [ ] project-config.md is updated with new workflow and skill references
+
+## Analysis
+
+### Likely Impact
+Primary lane is creating two new files that complete the story lifecycle: `.aifact/workflows/story-done.md` and `.vibe/skills/story-done/SKILL.md`. In-scope files:
+- `.aifact/workflows/story-done.md` (new)
+- `.vibe/skills/story-done/SKILL.md` (new)
+- `work/project-config.md:16-17` (add new workflow/skill references)
+
+### Possible Adjacent Touchpoints
+- Any workflows or skills that enumerate available workflows/skills may need updates to include story-done
+- Story files in `work/stories/in-progress/` that will use this workflow after implementation
+
+### Existing Patterns / Prior Art
+Closest patterns to follow are the existing paired workflow/skill definitions:
+- `.aifact/workflows/story-start.md` and `.vibe/skills/story-start/SKILL.md` for story state transitions and git operations
+- `.aifact/workflows/story-validator.md` and `.vibe/skills/story-validator/SKILL.md` for Validation section format
+- All skills use YAML frontmatter with `name`, `description`, `user-invocable: true`, and `allowed-tools` list
+- Workflows use Purpose, Core Steps, Constraints, Output Contract structure
+- Branch naming follows `<type>/<slug>` pattern established in story-start
+- Git operations use standard git commands via bash tool
+
+### Layer Boundaries
+- Start with creating the workflow definition file with proper Core Steps for story finalization
+- Then create the corresponding Vibe skill that implements the workflow using Vibe tool names
+- Update project-config.md to reference the new workflow and skill
+- Do not implement the story-done logic on itself — this story only creates the workflow and skill files
+- Do not modify existing workflows or skills beyond adding references in project-config.md
+
+### Verification Plan
+- Verify `.aifact/workflows/story-done.md` follows established workflow format
+- Verify `.vibe/skills/story-done/SKILL.md` follows established skill format with proper YAML frontmatter
+- Verify `work/project-config.md` includes new workflow and skill in appropriate sections
+- Verify no syntax errors in markdown files
+- Verify all acceptance criteria are addressed by the created files
