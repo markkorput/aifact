@@ -77,3 +77,25 @@ Closest patterns to follow are the existing paired workflow/skill definitions:
 - Verify `work/project-config.md` includes new workflow and skill in appropriate sections
 - Verify no syntax errors in markdown files
 - Verify all acceptance criteria are addressed by the created files
+
+## Implementation
+
+### Changes Made
+
+**New workflow definition:**
+- Created `.aifact/workflows/story-done.md` with Purpose, Core Steps, Constraints, and Output Contract sections following established workflow format
+
+**New Vibe skill:**
+- Created `.vibe/skills/story-done/SKILL.md` with YAML frontmatter (name, description, user-invocable: true, allowed-tools)
+- Includes Hard Constraints and Execution sections with Implementation Notes for parent branch discovery, branch name derivation, validation check, git operations, and merge conflict handling
+
+**Project config update:**
+- Updated `work/project-config.md:16-17` to add `story-done` to the list of workflows and skills
+
+### Verification Results
+
+- [x] `.aifact/workflows/story-done.md` exists with proper workflow definition - Verified file exists with correct structure (Purpose, Core Steps, Constraints, Output Contract)
+- [x] `.vibe/skills/story-done/SKILL.md` exists with proper skill implementation - Verified file exists with YAML frontmatter, Hard Constraints, and Execution sections
+- [x] `work/project-config.md` includes new workflow and skill references - Verified `story-done` appears in both workflow and skill lists at lines 16-17
+- [x] No syntax errors in markdown files - Verified proper heading hierarchy and YAML frontmatter structure
+- [x] All acceptance criteria addressed by created files - All 10 acceptance criteria are covered by the implemented workflow and skill definitions
