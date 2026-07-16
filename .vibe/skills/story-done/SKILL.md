@@ -1,6 +1,6 @@
 ---
 name: story-done
-description: Move validated story to done, merge feature branch, clean up. Simple maintenance, no analysis needed.
+description: Move validated story to done, merge feature branch, clean up. Simple maintenance task - do not perform deep analysis, focus on execution only.
 user-invocable: true
 allowed-tools:
   - read_file
