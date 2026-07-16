@@ -1,6 +1,6 @@
 ---
 name: story-done
-description: Finalize a completed AiFact story by moving it to done, merging its feature branch, and cleaning up.
+description: Move validated story to done, merge feature branch, clean up. Simple maintenance, no analysis needed.
 user-invocable: true
 allowed-tools:
   - read_file
@@ -14,7 +14,7 @@ allowed-tools:
 
 > **Core Workflow**: See `.aifact/workflows/story-done.md`
 
-Finalize a completed story by moving it to done state, merging its feature branch back into its parent branch, and cleaning up.
+Move validated story to done, merge feature branch, clean up.
 
 ## Hard Constraints (Vibe-specific)
 
