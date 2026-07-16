@@ -99,3 +99,32 @@ Closest patterns to follow are the existing paired workflow/skill definitions:
 - [x] `work/project-config.md` includes new workflow and skill references - Verified `story-done` appears in both workflow and skill lists at lines 16-17
 - [x] No syntax errors in markdown files - Verified proper heading hierarchy and YAML frontmatter structure
 - [x] All acceptance criteria addressed by created files - All 10 acceptance criteria are covered by the implemented workflow and skill definitions
+
+## Validation (2026-07-16 22:55)
+
+**Status**: pass
+
+**Acceptance Criteria**:
+- [x] `.aifact/workflows/story-done.md` exists with proper workflow definition - Verified file exists with Purpose, Core Steps, Constraints, Output Contract
+- [x] `.vibe/skills/story-done/SKILL.md` exists with proper skill implementation - Verified YAML frontmatter, Hard Constraints, Execution, Implementation Notes
+- [x] story-done workflow moves validated story files to done directory - Verified Core Step 10 and Output Contract
+- [x] Feature branches are merged into their parent branch (not hardcoded to main) - Verified Core Step 8 and Constraints
+- [x] Feature branches are deleted after successful merge - Verified Core Step 9
+- [x] Story file move is committed with conventional commit message - Verified Core Step 11 and Output Contract
+- [x] Workflow requires Validation section with **Status**: pass - Verified Constraint and Core Step 3
+- [x] Merge conflicts are reported as blockers - Verified Constraint and Output Contract
+- [x] Workflow does not auto-push to remote - Verified Constraint
+- [x] Workflow only operates on stories in work/stories/in-progress/ directory - Verified Constraint and Core Step 2
+- [x] project-config.md is updated with new workflow and skill references - Verified lines 16-17
+
+**Verification Results**:
+- File structure: pass
+- Workflow format: pass
+- Skill format: pass
+- Project config update: pass
+- Syntax validation: pass
+
+**Issues Found**:
+- None
+
+**Recommendation**: ready
